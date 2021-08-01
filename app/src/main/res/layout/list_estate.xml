@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="5dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+
+        <ImageView
+            android:id="@+id/imgEstate"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/priceEstate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="100 000 €"
+            app:layout_constraintStart_toEndOf="@id/imgEstate"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/roomEstate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5 pièces"
+            app:layout_constraintStart_toStartOf="@id/priceEstate"
+            app:layout_constraintTop_toBottomOf="@id/priceEstate"/>
+
+        <TextView
+            android:id="@+id/sizeEstate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="70 m²"
+            app:layout_constraintStart_toStartOf="@id/roomEstate"
+            app:layout_constraintTop_toBottomOf="@id/roomEstate"/>
+
+        <TextView
+            android:id="@+id/dateEntryEstate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="17/07/2021"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="5dp"/>
+
+        <TextView
+            android:id="@+id/employeeEstate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bastien Rambeaud"
+            app:layout_constraintEnd_toEndOf="@id/dateEntryEstate"
+            app:layout_constraintTop_toBottomOf="@id/dateEntryEstate"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="5dp"/>
+
+        <TextView
+            android:id="@+id/availableEstate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@id/dateEntryEstate"
+            app:layout_constraintTop_toBottomOf="@id/employeeEstate"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="5dp"/>
+
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

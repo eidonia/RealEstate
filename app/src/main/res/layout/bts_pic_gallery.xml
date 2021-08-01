@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/textChoice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Que voulez-vous choisir ?"
+        app:layout_constraintTop_toTopOf="parent"
+        android:gravity="center"
+        android:layout_marginTop="5dp"/>
+
+    <Button
+        android:id="@+id/btnGallery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/textChoice"
+        app:layout_constraintStart_toStartOf="parent"
+        app:icon="@drawable/ic_round_photo_24"
+        style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+        android:text="Ouvrir la galerie"
+        android:textColor="@android:color/tab_indicator_text"
+        app:iconTint="@android:color/tab_indicator_text"/>
+
+    <Button
+        android:id="@+id/btnCamera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/btnGallery"
+        app:layout_constraintStart_toStartOf="parent"
+        app:icon="@drawable/ic_round_photo_camera_24"
+        style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+        android:text="Prendre une photo"
+        android:textColor="@android:color/tab_indicator_text"
+        app:iconTint="@android:color/tab_indicator_text"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

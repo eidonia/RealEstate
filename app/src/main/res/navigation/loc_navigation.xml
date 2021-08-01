@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/loc_navigation.xml"
+    app:startDestination="@id/listLocEstateFrag">
+
+    <fragment
+        android:id="@+id/listLocEstateFrag"
+        android:name="com.example.realestate.ui.buyOrLocActivities.locActivity.ListLocEstateFrag"
+        android:label="ListLocEstateFrag" >
+        <action
+            android:id="@+id/action_listLocEstateFrag_to_locEstateFrag"
+            app:destination="@id/locEstateFrag"/>
+    </fragment>
+    <fragment
+        android:id="@+id/locEstateFrag"
+        android:name="com.example.realestate.ui.buyOrLocActivities.locActivity.LocEstateFrag"
+        android:label="LocEstateFrag" >
+        <argument
+            android:name="idLocation"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_locEstateFrag_to_listLocEstateFrag"
+            app:destination="@id/listLocEstateFrag" />
+    </fragment>
+</navigation>

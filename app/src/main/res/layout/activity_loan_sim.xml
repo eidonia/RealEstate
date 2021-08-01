@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.loanSimActivity.LoanSimActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/topbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:elevation="0dp">
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:navigationIcon="@drawable/ic_round_arrow_back_24"
+            app:title="Simulation d'un prêt" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/topbar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@mipmap/realestate">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="15dp"
+                android:background="#74F6F3F3">
+
+                <RadioGroup
+                    android:id="@+id/radioGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp">
+
+                    <RadioButton
+                        android:id="@+id/oldCheck"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:textColor="@color/black"
+                        android:buttonTint="@color/dark_brown"
+                        android:text="Bien ancien"
+                        android:layout_marginEnd="50dp"/>
+
+                    <RadioButton
+                        android:id="@+id/newCheck"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:buttonTint="@color/dark_brown"
+                        android:text="Bien neuf"/>
+
+                </RadioGroup>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/priceLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Prix du bien"
+                    app:layout_constraintTop_toBottomOf="@id/radioGroup"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="5dp"
+                    app:boxStrokeColor="@color/black"
+                    android:textColorHint="@color/black"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    app:layout_constraintEnd_toStartOf="@id/notaryLayout">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/priceText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:inputType="number"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/notaryLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="@id/priceLayout"
+                    app:layout_constraintBottom_toBottomOf="@id/depositLayout"
+                    android:hint="frais de notaire"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/priceLayout"
+                    android:clickable="false"
+                    android:focusable="false"
+                    app:boxStrokeColor="@color/black"
+                    android:textColorHint="@color/black"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="5dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/notaryText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none"
+                        android:textColor="@color/black"
+                        android:clickable="false"
+                        android:focusable="false"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/depositLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Apport"
+                    app:layout_constraintTop_toBottomOf="@id/priceLayout"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="10dp"
+                    app:boxStrokeColor="@color/black"
+                    android:textColorHint="@color/black"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    app:layout_constraintEnd_toEndOf="@id/priceLayout">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/depositText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:inputType="number"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/lengthLoan"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/depositLayout"
+                    android:hint="Durée du prêt"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    app:boxStrokeColor="@color/black"
+                    android:textColorHint="@color/black"
+                    android:layout_marginStart="10dp"
+                    app:endIconTint="@color/black">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/lengthchoice"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:inputType="none"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+                    android:id="@+id/calculateLoan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Calculez votre prêt"
+                    android:padding="15dp"
+                    app:layout_constraintTop_toBottomOf="@id/lengthLoan"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="20dp"/>
+
+                <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/pieChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:visibility="gone"
+                    app:layout_constraintTop_toBottomOf="@id/calculateLoan"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginTop="10dp"/>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

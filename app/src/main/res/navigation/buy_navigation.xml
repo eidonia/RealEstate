@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/buy_navigation.xml"
+    app:startDestination="@id/listBuyEstateFrag">
+
+    <fragment
+        android:id="@+id/listBuyEstateFrag"
+        android:name="com.example.realestate.ui.buyOrLocActivities.buyActivity.ListBuyEstateFrag"
+        android:label="ListBuyEstateFrag" >
+        <action
+            android:id="@+id/action_listBuyEstateFrag_to_buyEstateFrag"
+            app:destination="@id/buyEstateFrag" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/buyEstateFrag"
+        android:name="com.example.realestate.ui.buyOrLocActivities.buyActivity.BuyEstateFrag"
+        android:label="fragment_buy_estate"
+        tools:layout="@layout/fragment_buy_estate" >
+        <argument
+            android:name="idBuy"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_buyEstateFrag_to_listBuyEstateFrag"
+            app:destination="@id/listBuyEstateFrag" />
+    </fragment>
+</navigation>
