@@ -20,7 +20,6 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:navigationIcon="@drawable/ic_round_arrow_back_24"
             app:menu="@menu/modify_menu"
             app:title="Louer un bien" />
     </com.google.android.material.appbar.AppBarLayout>
@@ -124,7 +123,7 @@
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/listPoi"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         tools:listitem="@layout/list_poi_criteria"
                         app:layout_constraintTop_toBottomOf="@id/poiText"
@@ -172,20 +171,42 @@
                 android:layout_height="wrap_content"
                 android:text="Mis en ligne"
                 app:layout_constraintTop_toBottomOf="@id/staticImage"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="15dp"
-                android:layout_marginStart="10dp"/>
+                app:layout_constraintStart_toStartOf="@id/dateEstate"
+                app:layout_constraintEnd_toEndOf="@id/dateEstate"
+                android:layout_marginTop="15dp"/>
 
             <TextView
                 android:id="@+id/dateEstate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/dateText"
-                app:layout_constraintStart_toStartOf="@id/dateText"
-                app:layout_constraintEnd_toEndOf="@id/dateText"
+                app:layout_constraintStart_toStartOf="parent"
                 android:text="17/07/21"
                 android:textSize="17sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:layout_marginStart="10dp"/>
+
+            <TextView
+                android:id="@+id/dateSellOrRentText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mis en ligne"
+                app:layout_constraintTop_toBottomOf="@id/staticImage"
+                app:layout_constraintStart_toStartOf="@id/dateSellOrRentEstate"
+                app:layout_constraintEnd_toEndOf="@id/dateSellOrRentEstate"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="10dp"/>
+
+            <TextView
+                android:id="@+id/dateSellOrRentEstate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/dateSellOrRentText"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="17/07/21"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:layout_marginEnd="10dp"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

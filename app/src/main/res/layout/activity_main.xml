@@ -27,6 +27,17 @@
         android:layout_marginTop="10dp"
         app:tint="@color/black"/>
 
+    <ImageView
+        android:id="@+id/btnWifi"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_round_wifi_tethering_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        app:tint="@color/black"/>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintBtn"

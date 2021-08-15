@@ -33,12 +33,12 @@ class EstateRepository @Inject constructor(
         return geocodeMapsService.getGeocode(address = adress, key = API_KEY)
     }
 
-    override suspend fun insertEstateDao(estate: RealEstate): Long {
+    override suspend fun insertEstate(estate: RealEstate): Long {
         insertEstateFirebase(estate)
         return estateDao.insertEstate(estate)
     }
 
-    override suspend fun insertEstateFirebase(estate: RealEstate) {
+    private fun insertEstateFirebase(estate: RealEstate) {
         db.collection(estate.buyOrLoc.name)
             .document(estate.dateEntry.toString())
             .set(estate)
@@ -49,19 +49,20 @@ class EstateRepository @Inject constructor(
             }
     }
 
-    override suspend fun getEstateWithIdRoom(id: Long): RealEstate {
+    override suspend fun getEstate(id: Long): RealEstate {
         Log.d("testRepo", "id: $id")
         return estateDao.getEstatewithId(id)
     }
 
 
-    override suspend fun getEstate(): MutableList<RealEstate> {
+    override suspend fun getListEstate(): MutableList<RealEstate> {
         return estateDao.getEstate()
     }
 
-    override suspend fun uploadPicOnFirebase(pic: String): MutableLiveData<String> {
+    override suspend fun uploadPic(pic: String): MutableLiveData<String> {
         val mutableLiveData = MutableLiveData<String>()
         var picUri = Uri.parse(pic)
+
         var picRef: StorageReference = storage.child(picUri.lastPathSegment!!)
         var uploadTask: UploadTask = picRef.putFile(picUri)
 
@@ -83,7 +84,7 @@ class EstateRepository @Inject constructor(
         return mutableLiveData
     }
 
-    override suspend fun getBuyOrLocEstate(buyOrLoc: BuyOrLoc): MutableLiveData<MutableList<RealEstate>> {
+    override suspend fun getListEstate(buyOrLoc: BuyOrLoc): MutableLiveData<MutableList<RealEstate>> {
         var mutableLiveData = MutableLiveData<MutableList<RealEstate>>()
         //val listFireStore = getBuyOrLocFromFirebase(buyOrLoc)
 
@@ -110,20 +111,9 @@ class EstateRepository @Inject constructor(
         return estateDao.updateRealEstate(estate)
     }
 
-    override suspend fun updateEstateFirebase(estate: RealEstate) {
+    private fun updateEstateFirebase(estate: RealEstate) {
         db.collection(estate.buyOrLoc.name)
             .document(estate.dateEntry.toString())
             .set(estate, SetOptions.merge())
-    }
-
-    override suspend fun deleteEstateFirebase(estate: RealEstate) {
-        db.collection(estate.buyOrLoc.name)
-            .document(estate.dateEntry.toString())
-            .delete()
-    }
-
-    override suspend fun deleteEstate(estate: RealEstate) {
-        deleteEstateFirebase(estate)
-        return estateDao.deleteEstate(estate)
     }
 }

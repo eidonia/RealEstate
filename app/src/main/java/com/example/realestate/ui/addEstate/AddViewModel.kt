@@ -16,12 +16,17 @@ class AddViewModel @Inject constructor(private val repo: EstateModel) : ViewMode
     val geocode: LiveData<LatLng> = addressGeocode.switchMap { address ->
         liveData(context = viewModelScope.coroutineContext + Dispatchers.IO) {
             val geocode = repo.getLatlng(address)
-            emit(
-                LatLng(
-                    geocode.results!![0]?.geometry!!.location!!.lat!!.toDouble(),
-                    geocode.results[0]?.geometry?.location?.lng!!.toDouble()
-                )
-            )
+            geocode.results?.get(0)?.geometry?.location?.let { location ->
+                if (location.lat != null && location.lng != null) {
+                    emit(
+                        LatLng(
+                            location.lat.toDouble(),
+                            location.lng.toDouble()
+                        )
+                    )
+                }
+            }
+
         }
     }
 
@@ -37,22 +42,21 @@ class AddViewModel @Inject constructor(private val repo: EstateModel) : ViewMode
 
     }
 
-    fun putPicOnFirebase(pic: String): MutableLiveData<String> {
+    fun uploadPicture(pic: String): MutableLiveData<String> {
         var mutableLiveData = MutableLiveData<String>()
-        viewModelScope.launch { mutableLiveData = repo.uploadPicOnFirebase(pic) }
-
+        viewModelScope.launch { mutableLiveData = repo.uploadPic(pic) }
         return mutableLiveData
     }
 
     fun getEstateRoom(idEstate: Long): MutableLiveData<RealEstate> {
         var mutableLiveData = MutableLiveData<RealEstate>()
-        viewModelScope.launch { mutableLiveData.value = repo.getEstateWithIdRoom(idEstate) }
+        viewModelScope.launch { mutableLiveData.value = repo.getEstate(idEstate) }
         return mutableLiveData
     }
 
-    fun insertDao(estate: RealEstate): MutableLiveData<Long> {
+    fun insertEstate(estate: RealEstate): MutableLiveData<Long> {
         var mutableLiveData = MutableLiveData<Long>()
-        viewModelScope.launch { mutableLiveData.value = repo.insertEstateDao(estate) }
+        viewModelScope.launch { mutableLiveData.value = repo.insertEstate(estate) }
         return mutableLiveData
     }
 

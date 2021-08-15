@@ -39,7 +39,7 @@ data class RealEstate(
     var dateSellOrRent: Long? = null
     var staticImage: String? = null
 
-    fun formatType(context: Context): String {
+    fun formatType(): String {
         return when (this.type) {
             EstateType.HOUSE -> "Maison"
             EstateType.APARTMENT -> "Appartement"
@@ -48,17 +48,10 @@ data class RealEstate(
         }
     }
 
-    fun formatBuyOrLoc(context: Context): String {
+    fun formatBuyOrLoc(): String {
         return when (this.buyOrLoc) {
             BuyOrLoc.LOCATION -> "Location"
             BuyOrLoc.BUY -> "Achat"
-        }
-    }
-
-    fun formatOldOrnew(context: Context): String {
-        return when (this.oldOrNew) {
-            OldOrNew.OLD -> "Ancien"
-            OldOrNew.NEW -> "Neuf"
         }
     }
 
@@ -89,10 +82,17 @@ data class RealEstate(
         return sdf.format(this.dateEntry)
     }
 
+    fun getDateUnavailable(): String {
+        val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE)
+        return sdf.format(this.dateSellOrRent ?: 0)
+    }
+
     fun getCurrency(context: Context): String {
         return when (PreferenceManager.getDefaultSharedPreferences(context)
             .getBoolean("getCurrency", false)) {
-            true -> " ${separatorThousand(priceDollar!!)} $"
+            true -> {
+                "${separatorThousand(priceDollar!!)} $"
+            }
             false -> "${separatorThousand(priceEuro!!)} €"
         }
     }
@@ -113,7 +113,7 @@ data class RealEstate(
         }
     }
 
-    fun separatorThousand(number: String): String {
+    private fun separatorThousand(number: String): String {
         return NumberFormat.getNumberInstance(Locale.FRANCE).format(number.toLong())
     }
 

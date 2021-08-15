@@ -1,7 +1,10 @@
 package com.example.realestate.database.dao
 
 import android.database.Cursor
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.example.realestate.models.BuyOrLoc
 import com.example.realestate.models.RealEstate
 
@@ -22,9 +25,6 @@ interface EstateDao {
 
     @Query("SELECT * FROM realestate WHERE buyOrLoc = :buyOrLoc")
     fun getLocOrBuyEstate(buyOrLoc: BuyOrLoc): MutableList<RealEstate>
-
-    @Delete
-    fun deleteEstate(estate: RealEstate)
 
     @Query("SELECT * FROM realestate")
     fun getEstateCursor(): Cursor

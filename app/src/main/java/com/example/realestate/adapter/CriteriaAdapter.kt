@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.realestate.R
-import com.example.realestate.models.Criteria
 
 class CriteriaAdapter : RecyclerView.Adapter<CriteriaAdapter.ViewHolder>() {
 

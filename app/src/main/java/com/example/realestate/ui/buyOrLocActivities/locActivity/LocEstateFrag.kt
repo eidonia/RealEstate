@@ -1,60 +1,35 @@
 package com.example.realestate.ui.buyOrLocActivities.locActivity
 
 import android.content.Intent
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import android.util.Log
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.realestate.R
+import com.example.realestate.baseFragment.BaseFragmentBuyOrLoc
 import com.example.realestate.databinding.FragmentLocEstateBinding
 import com.example.realestate.models.RealEstate
-import com.example.realestate.adapter.CriteriaAdapter
-import com.example.realestate.adapter.PoiAdapter
 import com.example.realestate.ui.buyOrLocActivities.BuyAndLocViewModel
 import com.example.realestate.ui.buyOrLocActivities.ModificationEstate
 import com.glide.slider.library.SliderLayout
 import com.glide.slider.library.slidertypes.DefaultSliderView
+import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class LocEstateFrag : Fragment() {
+class LocEstateFrag : BaseFragmentBuyOrLoc<FragmentLocEstateBinding>() {
 
-    private lateinit var binding: FragmentLocEstateBinding
-    private lateinit var adapterCriteria: CriteriaAdapter
-    private lateinit var adapterPoi: PoiAdapter
-    private lateinit var viewModel: BuyAndLocViewModel
+    override fun createUI(estate: RealEstate) {
+        super.createUI(estate)
+        val isTablet = requireContext().resources.getBoolean(R.bool.isTablet)
+        if (!isTablet) {
+            binding.toolbar.setNavigationIcon(R.drawable.ic_round_arrow_back_24)
+            binding.toolbar.setNavigationOnClickListener { activity?.onBackPressed() }
+        }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentLocEstateBinding.inflate(inflater)
-
-        binding.toolbar.setNavigationOnClickListener { activity?.onBackPressed() }
-
-        val args: LocEstateFragArgs by navArgs()
-
-        adapterCriteria = CriteriaAdapter()
-        adapterPoi = PoiAdapter()
-
-        viewModel = ViewModelProvider(this).get(BuyAndLocViewModel::class.java)
-
-        viewModel.getEstateRoom(args.idLocation).observe(viewLifecycleOwner, { estate ->
-            createUI(estate)
-        })
-
-        return binding.root
-    }
-
-
-    private fun createUI(estate: RealEstate) {
         val requestOption = RequestOptions()
         requestOption.centerCrop()
 
@@ -75,7 +50,7 @@ class LocEstateFrag : Fragment() {
         }
 
         with(binding) {
-            toolbar.title = "${estate.formatType(requireContext())}, ${estate.size} m², ${
+            toolbar.title = "${estate.formatType()}, ${estate.size} m², ${
                 estate.getCurrency(requireContext())
             }"
             sizeEstate.text = "${estate.size} m²"
@@ -90,30 +65,17 @@ class LocEstateFrag : Fragment() {
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             listPoi.adapter = adapterPoi
             if (estate.listPoi != null) adapterPoi.addList(listPoiToString(estate))
-            if (estate.listCriteria != null)adapterCriteria.addList(listCriteriaToString(estate))
-
-
-            viewModel.setAddress(estate.address!!)
-            viewModel.staticImage.observe(viewLifecycleOwner, { address ->
-                Glide.with(requireContext())
-                    .load(address)
-                    .into(staticImage)
-
-            })
+            if (estate.listCriteria != null) adapterCriteria.addList(listCriteriaToString(estate))
 
             toolbar.setOnMenuItemClickListener { item ->
-                when(item.itemId) {
+                when (item.itemId) {
                     R.id.openModify -> {
-                        var intent = Intent(requireContext(), ModificationEstate::class.java)
-                        intent.putExtra("idModif", estate.dateEntry)
-                        startActivity(intent)
+                        if (sameUser(estate.employee)) {
+                            var intent = Intent(requireContext(), ModificationEstate::class.java)
+                            intent.putExtra("idModif", estate.dateEntry)
+                            startActivity(intent)
+                        }
 
-                        return@setOnMenuItemClickListener  true
-                    }
-                    R.id.delete -> {
-                        val action = LocEstateFragDirections.actionLocEstateFragToListLocEstateFrag()
-                        findNavController().navigate(action)
-                        viewModel.deleteEstate(estate)
                         return@setOnMenuItemClickListener true
                     }
                     else -> return@setOnMenuItemClickListener false
@@ -123,24 +85,39 @@ class LocEstateFrag : Fragment() {
         }
     }
 
-    private fun listCriteriaToString(estate: RealEstate): MutableList<String> {
-        val list = mutableListOf<String>()
-        for (criteria in estate.listCriteria!!) {
-            list.add(estate.formatCriteria(criteria))
-        }
-        return list
-    }
-
-    private fun listPoiToString(estate: RealEstate): MutableList<String> {
-        val list = mutableListOf<String>()
-        for (poi in estate.listPoi!!) {
-            list.add(estate.formatPointOfInterest(poi))
-        }
-        return list
+    private fun sameUser(employee: String?): Boolean {
+        val user = FirebaseAuth.getInstance().currentUser?.displayName
+        return employee == user
     }
 
     override fun onStop() {
         binding.sliderImg.stopAutoCycle()
         super.onStop()
     }
+
+    override fun setupVM() {
+        viewModel = ViewModelProvider(this).get(BuyAndLocViewModel::class.java)
+    }
+
+    override fun getViewBinding() = FragmentLocEstateBinding.inflate(layoutInflater)
+
+    override fun getActivNav(): Long {
+        Log.d("BlopId", "IDREceived")
+        val isTablet = requireContext().resources.getBoolean(R.bool.isTablet)
+
+        return when {
+            isTablet -> {
+                arguments?.getLong("idLoc") ?: 0
+            }
+            else -> {
+                val args: LocEstateFragArgs by navArgs()
+                args.idLocation
+            }
+        }
+    }
+
+    override fun getImage(): ImageView = binding.staticImage
+    override fun getSellOrRent(): TextView = binding.dateSellOrRentEstate
+    override fun getTextSellOrRent(): TextView = binding.dateSellOrRentText
+    override fun setTextSellOrRent(): CharSequence? = "Loué le"
 }

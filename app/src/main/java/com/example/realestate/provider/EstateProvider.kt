@@ -22,7 +22,6 @@ class EstateProvider : ContentProvider() {
         fun estateDao(): EstateDao
     }
 
-
     override fun onCreate(): Boolean {
         return true
     }

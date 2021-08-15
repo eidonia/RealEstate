@@ -8,15 +8,10 @@ import com.example.realestate.models.RealEstate
 interface EstateModel {
     suspend fun getStaticImage(address: String): String
     suspend fun getLatlng(adress: String): Geocode
-    suspend fun insertEstateDao(estate: RealEstate): Long
-    suspend fun insertEstateFirebase(estate: RealEstate)
-    suspend fun getEstateWithIdRoom(id: Long): RealEstate
-    suspend fun getEstate(): MutableList<RealEstate>
-    suspend fun uploadPicOnFirebase(pic: String): MutableLiveData<String>
-    suspend fun getBuyOrLocEstate(buyOrLoc: BuyOrLoc): MutableLiveData<MutableList<RealEstate>>
+    suspend fun insertEstate(estate: RealEstate): Long
+    suspend fun getEstate(id: Long): RealEstate
+    suspend fun getListEstate(): MutableList<RealEstate>
+    suspend fun uploadPic(pic: String): MutableLiveData<String>
+    suspend fun getListEstate(buyOrLoc: BuyOrLoc): MutableLiveData<MutableList<RealEstate>>
     suspend fun updateEstate(estate: RealEstate): Long
-    suspend fun deleteEstate(estate: RealEstate)
-    suspend fun updateEstateFirebase(estate: RealEstate)
-    suspend fun deleteEstateFirebase(estate: RealEstate)
-
 }

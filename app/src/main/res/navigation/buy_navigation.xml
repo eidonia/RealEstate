@@ -8,7 +8,8 @@
     <fragment
         android:id="@+id/listBuyEstateFrag"
         android:name="com.example.realestate.ui.buyOrLocActivities.buyActivity.ListBuyEstateFrag"
-        android:label="ListBuyEstateFrag" >
+        android:label="ListBuyEstateFrag"
+        tools:layout="@layout/fragment_list_loc_buy_estate">
         <action
             android:id="@+id/action_listBuyEstateFrag_to_buyEstateFrag"
             app:destination="@id/buyEstateFrag" />

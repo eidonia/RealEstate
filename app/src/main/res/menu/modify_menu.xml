@@ -7,11 +7,4 @@
         android:icon="@drawable/ic_round_edit_24"
         android:title="Edit"
         app:showAsAction="ifRoom"/>
-
-    <item
-        android:id="@+id/delete"
-        android:icon="@drawable/ic_round_delete_forever_24"
-        android:title="Delete"
-        app:showAsAction="always"/>
-
 </menu>

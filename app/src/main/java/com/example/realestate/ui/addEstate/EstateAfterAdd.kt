@@ -60,7 +60,7 @@ class EstateAfterAdd : AppCompatActivity() {
         }
 
         with(binding) {
-            toolbar.title = "${estate.formatType(this@EstateAfterAdd)}, ${estate.size} m², ${
+            toolbar.title = "${estate.formatType()}, ${estate.size} m², ${
                 estate.getCurrency(this@EstateAfterAdd)
             }"
             sizeEstate.text = "${estate.size} m²"
@@ -75,10 +75,10 @@ class EstateAfterAdd : AppCompatActivity() {
                 LinearLayoutManager(this@EstateAfterAdd, LinearLayoutManager.VERTICAL, false)
             listPoi.adapter = adapterPoi
             if (estate.listPoi != null) adapterPoi.addList(listPoiToString(estate))
-            if (estate.listCriteria != null)adapterCriteria.addList(listCriteriaToString(estate))
+            if (estate.listCriteria != null) adapterCriteria.addList(listCriteriaToString(estate))
 
 
-            viewModel.setAddress(estate.address!!)
+            estate.address?.let { viewModel.setAddress(it) }
             viewModel.staticImage.observe(this@EstateAfterAdd, { address ->
                 Glide.with(this@EstateAfterAdd)
                     .load(address)
@@ -91,16 +91,21 @@ class EstateAfterAdd : AppCompatActivity() {
 
     private fun listCriteriaToString(estate: RealEstate): MutableList<String> {
         val list = mutableListOf<String>()
-        for (criteria in estate.listCriteria!!) {
-            list.add(estate.formatCriteria(criteria))
+        estate.listCriteria?.let {
+            for (criteria in it) {
+                list.add(estate.formatCriteria(criteria))
+            }
         }
+
         return list
     }
 
     private fun listPoiToString(estate: RealEstate): MutableList<String> {
         val list = mutableListOf<String>()
-        for (poi in estate.listPoi!!) {
-            list.add(estate.formatPointOfInterest(poi))
+        estate.listPoi?.let {
+            for (poi in it) {
+                list.add(estate.formatPointOfInterest(poi))
+            }
         }
         return list
     }

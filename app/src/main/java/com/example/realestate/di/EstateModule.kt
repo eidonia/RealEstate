@@ -69,13 +69,6 @@ class EstateModule {
         return EstateRepository(db, geocodeMapsService, estateDao, storage)
     }
 
-
-    @Provides
-    @Singleton
-    fun providesFirebaseUser(): FirebaseUser {
-        return FirebaseAuth.getInstance().currentUser!!
-    }
-
     @Provides
     @Singleton
     fun providesDb(): FirebaseFirestore {

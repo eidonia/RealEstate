@@ -1,6 +1,7 @@
 package com.example.realestate.ui.mapActivity
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Bitmap
 import android.location.Location
 import android.location.LocationListener
@@ -72,6 +73,25 @@ class MapActivity : AppCompatActivity(), LocationListener, OnMapReadyCallback {
         map.animateCamera(update)
 
         setMarkers(listEstate)
+
+        map.setOnMarkerClickListener { marker ->
+            val estate = hashMap[marker]
+
+            when (estate?.buyOrLoc) {
+                BuyOrLoc.BUY -> {
+                    val intent = Intent(this, MapBuyActivity::class.java)
+                    intent.putExtra("idMarker", estate.dateEntry)
+                    startActivity(intent)
+                    return@setOnMarkerClickListener true
+                }
+                else -> {
+                    val intent = Intent(this, MapLocActivity::class.java)
+                    intent.putExtra("idMarker", estate?.dateEntry)
+                    startActivity(intent)
+                    return@setOnMarkerClickListener true
+                }
+            }
+        }
     }
 
     private fun setMarkers(list: MutableList<RealEstate>) {
@@ -84,19 +104,22 @@ class MapActivity : AppCompatActivity(), LocationListener, OnMapReadyCallback {
                 BuyOrLoc.BUY -> ContextCompat.getDrawable(this, R.drawable.ic_round_place_buy_24)
                     ?.toBitmap()
             }
-            hashMap.put(
-                gMap.addMarker(
-                    MarkerOptions()
-                        .position(LatLng(estate.lat, estate.lng))
-                        .icon(BitmapDescriptorFactory.fromBitmap(resizeBitmap(marker!!, 150, 150)))
-                        .zIndex(3.0f)
-                )!!,
-                estate
-            )
+            marker?.let {
+                hashMap.put(
+                    gMap.addMarker(
+                        MarkerOptions()
+                            .position(LatLng(estate.lat, estate.lng))
+                            .icon(BitmapDescriptorFactory.fromBitmap(resizeBitmap(it, 150, 150)))
+                            .zIndex(3.0f)
+                    )!!,
+                    estate
+                )
+            }
+
         }
     }
 
-    private fun resizeBitmap(bitmap: Bitmap, width: Int, height: Int): Bitmap? {
+    private fun resizeBitmap(bitmap: Bitmap, width: Int, height: Int): Bitmap {
         return Bitmap.createScaledBitmap(bitmap, width, height, false)
     }
 

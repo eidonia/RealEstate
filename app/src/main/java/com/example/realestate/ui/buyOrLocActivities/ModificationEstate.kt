@@ -1,25 +1,25 @@
 package com.example.realestate.ui.buyOrLocActivities
 
+import android.app.Activity
 import android.content.Intent
-import android.graphics.Bitmap
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
+import android.preference.PreferenceManager
 import android.provider.MediaStore
-import android.util.Log
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.FileProvider
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.realestate.R
 import com.example.realestate.adapter.ListPicAdapter
 import com.example.realestate.databinding.ActivityModificationEstateBinding
 import com.example.realestate.models.*
-import com.example.realestate.ui.addEstate.EstateAfterAdd
 import com.example.realestate.utils.BottomSheetDialog
+import com.example.realestate.utils.Utils
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,7 +30,8 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 @AndroidEntryPoint
-class ModificationEstate : AppCompatActivity(), ListPicAdapter.UpdatePic, BottomSheetDialog.OpenActivity {
+class ModificationEstate : AppCompatActivity(), ListPicAdapter.UpdatePic,
+    BottomSheetDialog.OpenActivity {
 
     private lateinit var binding: ActivityModificationEstateBinding
     private lateinit var viewModel: BuyAndLocViewModel
@@ -56,7 +57,8 @@ class ModificationEstate : AppCompatActivity(), ListPicAdapter.UpdatePic, Bottom
         btsPic = BottomSheetDialog(this, this)
 
         binding.listPic.apply {
-            layoutManager = LinearLayoutManager(this@ModificationEstate, LinearLayoutManager.HORIZONTAL, false)
+            layoutManager =
+                LinearLayoutManager(this@ModificationEstate, LinearLayoutManager.HORIZONTAL, false)
             adapter = adapterPic
         }
 
@@ -67,7 +69,7 @@ class ModificationEstate : AppCompatActivity(), ListPicAdapter.UpdatePic, Bottom
     }
 
     private fun createUI(estate: RealEstate?) {
-        when(estate?.isAvailable) {
+        when (estate?.isAvailable) {
             true -> binding.radioAvailable.isChecked = true
             false -> {
                 binding.radioNotAvailable.isChecked = true
@@ -76,18 +78,18 @@ class ModificationEstate : AppCompatActivity(), ListPicAdapter.UpdatePic, Bottom
             }
         }
 
-       when(estate?.buyOrLoc) {
-           BuyOrLoc.LOCATION -> {
-               binding.radioLoc.isChecked = true
-               name = "LOC"
-           }
-           BuyOrLoc.BUY -> {
-               binding.radioBuy.isChecked = true
-               name = "BUY"
-           }
-       }
+        when (estate?.buyOrLoc) {
+            BuyOrLoc.LOCATION -> {
+                binding.radioLoc.isChecked = true
+                name = "LOC"
+            }
+            BuyOrLoc.BUY -> {
+                binding.radioBuy.isChecked = true
+                name = "BUY"
+            }
+        }
 
-        when(estate?.type) {
+        when (estate?.type) {
             EstateType.HOUSE -> binding.radioHouse.isChecked = true
             EstateType.APARTMENT -> binding.radioApartment.isChecked = true
             EstateType.MANOR -> binding.radioManor.isChecked = true
@@ -95,7 +97,7 @@ class ModificationEstate : AppCompatActivity(), ListPicAdapter.UpdatePic, Bottom
             EstateType.HOUSE -> binding.radioHouse.isChecked = true
         }
 
-        when(estate?.oldOrNew) {
+        when (estate?.oldOrNew) {
             OldOrNew.OLD -> binding.radioOld.isChecked = true
             OldOrNew.NEW -> binding.radioNew.isChecked = true
         }
@@ -109,7 +111,8 @@ class ModificationEstate : AppCompatActivity(), ListPicAdapter.UpdatePic, Bottom
         binding.editSizeEstate.setText(estate?.size)
         binding.editDescription.setText(estate?.description)
         binding.editPriceEstate.setText(estate?.euroOrDollarLong(this).toString())
-        adapterPic.addList(estate?.listPic!!)
+        estate?.listPic?.let { adapterPic.addList(it) }
+
 
         binding.btnAddPic.setOnClickListener {
             btsPic.openBTS()
@@ -122,9 +125,10 @@ class ModificationEstate : AppCompatActivity(), ListPicAdapter.UpdatePic, Bottom
 
     }
 
-    private fun checkCriteria(estate: RealEstate?) {
+    private fun checkPoi(estate: RealEstate?) {
         if (estate?.listPoi != null) {
-            for (poi in estate.listPoi!!) {
+            estate.listPoi?.let {
+                for (poi in it) {
                 if (poi == PointOfInterest.MEDICAL) {
                     binding.checkMedical.isChecked = true
                 }
@@ -144,51 +148,48 @@ class ModificationEstate : AppCompatActivity(), ListPicAdapter.UpdatePic, Bottom
                 if (poi == PointOfInterest.BUSINESS) {
                     binding.checkBusiness.isChecked = true
                 }
-            }
+            } }
         }
     }
 
-    private fun checkPoi(estate: RealEstate?) {
+    private fun checkCriteria(estate: RealEstate?) {
         if (estate?.listCriteria != null) {
-            for (criteria in estate.listCriteria!!) {
-                if (criteria == Criteria.CAVE) {
-                    binding.checkCave.isChecked = true
-                }
+            estate.listCriteria?.let {
+                for (criteria in it) {
+                    if (criteria == Criteria.CAVE) {
+                        binding.checkCave.isChecked = true
+                    }
 
-                if (criteria == Criteria.PARKING) {
-                    binding.checkParking.isChecked = true
-                }
+                    if (criteria == Criteria.PARKING) {
+                        binding.checkParking.isChecked = true
+                    }
 
-                if (criteria == Criteria.KITCHEN_AREA) {
-                    binding.checkKitchArea.isChecked = true
-                }
+                    if (criteria == Criteria.KITCHEN_AREA) {
+                        binding.checkKitchArea.isChecked = true
+                    }
 
-                if (criteria == Criteria.OPENPLANE_KITCHEN) {
-                    binding.checkOpenKitch.isChecked = true
-                }
+                    if (criteria == Criteria.OPENPLANE_KITCHEN) {
+                        binding.checkOpenKitch.isChecked = true
+                    }
 
-                if (criteria == Criteria.TERRACE) {
-                    binding.checkTerrace.isChecked = true
-                }
+                    if (criteria == Criteria.TERRACE) {
+                        binding.checkTerrace.isChecked = true
+                    }
 
-                if (criteria == Criteria.BALCONY) {
-                    binding.checkBalcony.isChecked = true
+                    if (criteria == Criteria.BALCONY) {
+                        binding.checkBalcony.isChecked = true
+                    }
                 }
             }
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == GET_FROM_GALLERY || requestCode == GET_FROM_CAMERA && resultCode == RESULT_OK && null != data) {
-            val imageUri = data!!.data
-            var imgProfileBitmap: Bitmap
+    private var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val data: Intent? = result.data
+            val imageUri = data?.data ?: photoUri
             try {
-                if (requestCode == GET_FROM_GALLERY) {
-                    picEstate = imageUri.toString()
-                } else {
-                    picEstate = photoUri.toString()
-                }
+                picEstate = imageUri.toString()
                 viewModel.putPicOnFirebase(picEstate).observe(this, { picture ->
                     estate.listPic.add(picture)
                     adapterPic.addToList(picture)
@@ -213,7 +214,7 @@ class ModificationEstate : AppCompatActivity(), ListPicAdapter.UpdatePic, Bottom
                 photoFile?.also {
                     photoUri = FileProvider.getUriForFile(this, "com.exemple.realEstate.photo", it)
                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri)
-                    startActivityForResult(takePictureIntent, GET_FROM_CAMERA)
+                    resultLauncher.launch(takePictureIntent)
                 }
             }
         }
@@ -229,7 +230,7 @@ class ModificationEstate : AppCompatActivity(), ListPicAdapter.UpdatePic, Bottom
                 else -> EstateType.MANOR
             }
 
-            val buyOrLoc =  when (radioGroupBuyOrLoc.checkedRadioButtonId) {
+            val buyOrLoc = when (radioGroupBuyOrLoc.checkedRadioButtonId) {
                 R.id.radioBuy -> BuyOrLoc.BUY
                 else -> BuyOrLoc.LOCATION
             }
@@ -265,8 +266,29 @@ class ModificationEstate : AppCompatActivity(), ListPicAdapter.UpdatePic, Bottom
                 ""
             }
 
-            val price = if (editPriceEstate.text.toString() != "") {
+            var priceEuro = ""
+            var priceDollar = ""
+
+            if (editPriceEstate.text.toString() != "") {
                 editPriceEstate.text.toString()
+
+                when (PreferenceManager.getDefaultSharedPreferences(this@ModificationEstate)
+                    .getBoolean("getCurrency", false)) {
+                    true -> {
+                        priceDollar = editPriceEstate.text.toString()
+                        priceEuro =
+                            Utils.convertDollarToEuro(editPriceEstate.text.toString().toInt())
+                                .toString()
+                    }
+                    false -> {
+                        priceEuro = editPriceEstate.text.toString()
+                        priceDollar =
+                            Utils.convertEuroToDollar(editPriceEstate.text.toString().toInt())
+                                .toString()
+                    }
+                }
+
+
             } else {
                 check++
                 editPriceEstate.error = "Champ requis"
@@ -283,8 +305,7 @@ class ModificationEstate : AppCompatActivity(), ListPicAdapter.UpdatePic, Bottom
 
             val listCriteria: ArrayList<Criteria> = createCriteriaList()
             val listAround: ArrayList<PointOfInterest> = createPoiList()
-            val user = FirebaseAuth.getInstance().currentUser
-            val employee = user!!.displayName
+            val employee = FirebaseAuth.getInstance().currentUser?.displayName
 
             if (check == 0) {
                 viewModel.setAddress(address)
@@ -302,8 +323,8 @@ class ModificationEstate : AppCompatActivity(), ListPicAdapter.UpdatePic, Bottom
                         nbRoom = nbRoom,
                         size = sizeEstate,
                         description = description,
-                        priceDollar = price,
-                        priceEuro = price,
+                        priceDollar = priceDollar,
+                        priceEuro = priceEuro,
                         listCriteria = listCriteria,
                         listPoi = listAround,
                         listPic = this@ModificationEstate.estate.listPic,
@@ -318,7 +339,8 @@ class ModificationEstate : AppCompatActivity(), ListPicAdapter.UpdatePic, Bottom
                     if (this@ModificationEstate.estate.isAvailable && radioNotAvailable.isChecked) {
                         estate.isAvailable = false
                         estate.dateSellOrRent = System.currentTimeMillis()
-
+                    } else if(!this@ModificationEstate.estate.isAvailable && radioNotAvailable.isChecked) {
+                        estate.isAvailable = false
                     }
 
                     viewModel.staticImage.observe(
@@ -416,12 +438,11 @@ class ModificationEstate : AppCompatActivity(), ListPicAdapter.UpdatePic, Bottom
 
     override fun openGallery() {
         Toast.makeText(this, "Open Gallery", Toast.LENGTH_SHORT).show()
-        startActivityForResult(
+        resultLauncher.launch(
             Intent(
                 Intent.ACTION_PICK,
                 MediaStore.Images.Media.INTERNAL_CONTENT_URI
-            ), GET_FROM_GALLERY
-        )
+            ))
     }
 
     @Throws(IOException::class)

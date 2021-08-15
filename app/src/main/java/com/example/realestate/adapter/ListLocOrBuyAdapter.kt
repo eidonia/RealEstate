@@ -37,7 +37,7 @@ class ListLocOrBuyAdapter constructor(
         holder.sizeEstate.text = "${estate.size} m²"
         holder.dateEntry.text = estate.getDate()
         holder.employee.text = estate.employee
-        holder.available.text = when(estate.isAvailable) {
+        holder.available.text = when (estate.isAvailable) {
             true -> "Disponible"
             else -> "Non Disponible"
         }

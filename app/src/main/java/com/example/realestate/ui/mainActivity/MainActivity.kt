@@ -16,6 +16,7 @@ import com.example.realestate.ui.buyOrLocActivities.locActivity.LocActivity
 import com.example.realestate.ui.loanSimActivity.LoanSimActivity
 import com.example.realestate.ui.mapActivity.MapActivity
 import com.example.realestate.ui.settings.SettingsActivity
+import com.example.realestate.utils.Utils
 import com.example.realestate.utils.ViewAnimation
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,9 +32,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val user = FirebaseAuth.getInstance().currentUser
-
-        Toast.makeText(this, "Hi, ${user!!.displayName} !", Toast.LENGTH_LONG).show()
         with(binding) {
 
             ViewAnimation.init(fabAddBuy)
@@ -69,6 +67,13 @@ class MainActivity : AppCompatActivity() {
                         SettingsActivity::class.java
                     )
                 )
+            }
+            btnWifi.setOnClickListener {
+                if (Utils.isInternetAvailable(this@MainActivity)) {
+                    Toast.makeText(this@MainActivity, "Connexion disponible", Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(this@MainActivity, "Connexion indisponible", Toast.LENGTH_LONG).show()
+                }
             }
             btnMap.setOnClickListener {
                 Log.d("ClickMapButton", "1st Click")

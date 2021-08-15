@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tablet_navigation"
+    app:startDestination="@id/emptyListFragment">
+
+
+    <fragment
+        android:id="@+id/buyEstateFrag2"
+        android:name="com.example.realestate.ui.buyOrLocActivities.buyActivity.BuyEstateFrag"
+        android:label="BuyEstateFrag" />
+    <fragment
+        android:id="@+id/locEstateFrag2"
+        android:name="com.example.realestate.ui.buyOrLocActivities.locActivity.LocEstateFrag"
+        android:label="BuyEstateFrag" />
+    <fragment
+        android:id="@+id/emptyListFragment"
+        android:name="com.example.realestate.ui.buyOrLocActivities.EmptyListFragment"
+        android:label="fragment_empty_list"
+        tools:layout="@layout/fragment_empty_list" />
+
+</navigation>
