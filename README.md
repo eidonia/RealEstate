@@ -15,6 +15,7 @@ Page permettant d'acéder aux différentes page de l'application
 ![imgur](https://imgur.com/Fq4gaLY.png)
 
 ![imgur](https://imgur.com/2Je4ycR.png)
+
 Le filtre permet d'afficher les biens avec différentes critères
 
 ![imgur](https://imgur.com/7xKtG00.png)
@@ -27,7 +28,7 @@ Page d'un bien immobilier choisi
 
 ![imgur](https://imgur.com/HvgeM0G.png)
 
-Notification qu iapparait après l'ajout d'un bien
+Notification qui apparait après l'ajout d'un bien
 
 ![imgur](https://imgur.com/J0PXvgj.png)
 
