@@ -85,20 +85,30 @@ class MainActivity : AppCompatActivity() {
                         Manifest.permission.ACCESS_COARSE_LOCATION
                     ) == PackageManager.PERMISSION_GRANTED
                 ) {
-                    startActivity(Intent(this@MainActivity, MapActivity::class.java))
+                    if (Utils.isLocationAvailable(this@MainActivity)){
+                        startActivity(Intent(this@MainActivity, MapActivity::class.java))
+                    } else {
+                        Toast.makeText(this@MainActivity, "Location not activated", Toast.LENGTH_LONG)
+                            .show()
+                    }
                 } else {
                     Toast.makeText(this@MainActivity, "Location not allowed", Toast.LENGTH_LONG)
                         .show()
                 }
             }
             fabAdd.setOnClickListener {
-                isRotate = ViewAnimation.rotateFab(it, !isRotate)
-                if (isRotate) {
-                    ViewAnimation.showIn(fabAddLoc)
-                    ViewAnimation.showIn(fabAddBuy)
-                } else {
-                    ViewAnimation.showOut(fabAddLoc)
-                    ViewAnimation.showOut(fabAddBuy)
+                if (Utils.isInternetAvailable(this@MainActivity)) {
+                    isRotate = ViewAnimation.rotateFab(it, !isRotate)
+                    if (isRotate) {
+                        ViewAnimation.showIn(fabAddLoc)
+                        ViewAnimation.showIn(fabAddBuy)
+                    } else {
+                        ViewAnimation.showOut(fabAddLoc)
+                        ViewAnimation.showOut(fabAddBuy)
+                    }
+                }else {
+                    Toast.makeText(this@MainActivity, "Impossible d'ajouter un bien en étant hors-ligne", Toast.LENGTH_LONG)
+                        .show()
                 }
             }
             fabAddBuy.setOnClickListener {
