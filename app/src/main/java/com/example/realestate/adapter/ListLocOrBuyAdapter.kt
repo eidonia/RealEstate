@@ -36,6 +36,8 @@ class ListLocOrBuyAdapter constructor(
         holder.sizeEstate.text = context.getString(R.string.size_estate, estate.size)
         holder.dateEntry.text = estate.getDate()
         holder.employee.text = estate.employee
+        holder.typeEstate.text = estate.formatType()
+        holder.city.text = estate.city
         holder.available.text = when (estate.isAvailable) {
             true -> context.getString(R.string.estate_dispo)
             else -> context.getString(R.string.estate_not_dispo)
@@ -70,5 +72,7 @@ class ListLocOrBuyAdapter constructor(
         val dateEntry: TextView = itemView.findViewById(R.id.dateEntryEstate)
         val employee: TextView = itemView.findViewById(R.id.employeeEstate)
         val available: TextView = itemView.findViewById(R.id.availableEstate)
+        val city: TextView = itemView.findViewById(R.id.cityEstate)
+        val typeEstate: TextView = itemView.findViewById(R.id.typeEstate)
     }
 }
