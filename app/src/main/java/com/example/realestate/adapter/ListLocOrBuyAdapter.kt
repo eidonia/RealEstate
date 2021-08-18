@@ -15,31 +15,30 @@ import com.example.realestate.models.RealEstate
 class ListLocOrBuyAdapter constructor(
     private val context: Context,
     private val fragCallbacks: FragCallBacks
-) : RecyclerView.Adapter<ListLocOrBuyAdapter.ViewwHolder>() {
+) : RecyclerView.Adapter<ListLocOrBuyAdapter.ViewHolder>() {
 
     private var listEstate = mutableListOf<RealEstate>()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewwHolder {
-        var view = LayoutInflater.from(parent.context).inflate(R.layout.list_estate, parent, false)
-        return ViewwHolder(view)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_estate, parent, false)
+        return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ViewwHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val estate = listEstate[position]
-        Log.d("test", "blop")
         Glide
             .with(context)
             .load(estate.listPic[0])
             .into(holder.imgEstate)
 
         holder.priceEstate.text = estate.getCurrency(context)
-        holder.roomEstate.text = "${estate.nbRoom} pièces"
-        holder.sizeEstate.text = "${estate.size} m²"
+        holder.roomEstate.text = context.getString(R.string.nb_room, estate.nbRoom)
+        holder.sizeEstate.text = context.getString(R.string.size_estate, estate.size)
         holder.dateEntry.text = estate.getDate()
         holder.employee.text = estate.employee
         holder.available.text = when (estate.isAvailable) {
-            true -> "Disponible"
-            else -> "Non Disponible"
+            true -> context.getString(R.string.estate_dispo)
+            else -> context.getString(R.string.estate_not_dispo)
         }
 
         holder.itemView.setOnClickListener {
@@ -53,9 +52,7 @@ class ListLocOrBuyAdapter constructor(
 
     fun addList(estateList: MutableList<RealEstate>) {
         this.listEstate.clear()
-        Log.d("test", "adapter : ${estateList.size}")
         this.listEstate.addAll(estateList)
-        Log.d("test", "adapter listEstate : ${listEstate.size}")
         notifyDataSetChanged()
     }
 
@@ -64,7 +61,7 @@ class ListLocOrBuyAdapter constructor(
     }
 
 
-    class ViewwHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         val imgEstate: ImageView = itemView.findViewById(R.id.imgEstate)
         val priceEstate: TextView = itemView.findViewById(R.id.priceEstate)

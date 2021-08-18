@@ -57,7 +57,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:padding="15dp"
-            android:text="louer"/>
+            android:text="@string/to_rent"/>
 
         <Button
             android:id="@+id/btnBuy"
@@ -68,7 +68,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:padding="15dp"
-            android:text="Acheter"/>
+            android:text="@string/to_buy"/>
 
         <Button
             android:id="@+id/btnMap"
@@ -79,7 +79,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btnBuy"
             android:padding="15dp"
-            android:text="Carte"/>
+            android:text="@string/map"/>
 
         <Button
             android:id="@+id/btnSim"
@@ -89,7 +89,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btnMap"
             android:padding="15dp"
-            android:text="Simulation Prêt"/>
+            android:text="@string/sim_loan"/>
 
 
 
@@ -120,7 +120,7 @@
             app:layout_constraintEnd_toEndOf="@id/fabAdd"
             app:icon="@drawable/ic_round_home_24"
             android:backgroundTint="@color/buy_color"
-            android:text="Rajouter vente"
+            android:text="@string/add_buy"
             android:gravity="center"/>
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
@@ -132,7 +132,7 @@
             app:layout_constraintEnd_toEndOf="@id/fabAdd"
             app:icon="@drawable/ic_round_apartment_24"
             android:backgroundTint="@color/loc_color"
-            android:text="rajouter location"
+            android:text="@string/add_loc"
             android:gravity="center"/>
 
 

@@ -35,6 +35,7 @@ class MapBuyActivity : AppCompatActivity() {
     private lateinit var adapterCriteria: CriteriaAdapter
     private lateinit var adapterPoi: PoiAdapter
     private lateinit var viewModel: MapViewModel
+    private lateinit var  estate: RealEstate
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +50,7 @@ class MapBuyActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this).get(MapViewModel::class.java)
 
         viewModel.getEstateRoom(intent.getLongExtra("idMarker", 0)).observe(this, { estate ->
+            this.estate = estate
             createUI(estate)
         })
 
@@ -75,11 +77,9 @@ class MapBuyActivity : AppCompatActivity() {
         }
 
         with(binding) {
-            toolbar.title = "${estate.formatType()}, ${estate.size} m², ${
-                estate.getCurrency(this@MapBuyActivity)
-            }"
-            sizeEstate.text = "${estate.size} m²"
-            roomEstate.text = "${estate.nbRoom} pièces"
+            toolbar.title = getString(R.string.toolbar_title, estate.formatType(), estate.size, estate.getCurrency(this@MapBuyActivity))
+            sizeEstate.text = getString(R.string.size_estate, estate.size)
+            roomEstate.text = getString(R.string.nb_room, estate.nbRoom)
             descriptionEstate.text = estate.description
             dateEstate.text = estate.getDate()
 
@@ -102,7 +102,6 @@ class MapBuyActivity : AppCompatActivity() {
             })
 
             fabModify.setOnClickListener {
-                Log.d("testChangePage", "blopi")
                 var intent = Intent(this@MapBuyActivity, ModificationEstate::class.java)
                 intent.putExtra("idModif", estate.dateEntry)
                 startActivity(intent)
@@ -111,7 +110,6 @@ class MapBuyActivity : AppCompatActivity() {
             toolbar.setOnMenuItemClickListener { item ->
                 when (item.itemId) {
                     R.id.openModify -> {
-                        Log.d("testChangePage", "blopi")
                         var intent = Intent(this@MapBuyActivity, ModificationEstate::class.java)
                         intent.putExtra("idModif", estate.dateEntry)
                         startActivity(intent)
@@ -149,19 +147,16 @@ class MapBuyActivity : AppCompatActivity() {
     }
 
     private fun estimateLoan(estate: RealEstate) {
-        var notaryCharges = when (estate.oldOrNew) {
+        val notaryCharges = when (estate.oldOrNew) {
             OldOrNew.OLD -> notaryCharges(estate.euroOrDollarLong(this@MapBuyActivity), 8)
             OldOrNew.NEW -> notaryCharges(estate.euroOrDollarLong(this@MapBuyActivity), 3)
         }
 
-        var deposit = (estate.euroOrDollarLong(this@MapBuyActivity) * 20) / 100
-        var loan = (estate.euroOrDollarLong(this@MapBuyActivity) + notaryCharges) - deposit
+        val deposit = (estate.euroOrDollarLong(this@MapBuyActivity) * 20) / 100
+        val loan = (estate.euroOrDollarLong(this@MapBuyActivity) + notaryCharges) - deposit
 
 
-        binding.textExample.text =
-            "Exemple de prêt possible pour une durée de 25 ans avec un taux d'intérêt de 1,65% et un apport égal à 20% du prix (soit $deposit ${
-                estate.getSymbolCurrency(this@MapBuyActivity)
-            })"
+        binding.textExample.text = getString(R.string.loan_example, deposit.toString(), estate.getSymbolCurrency(this))
         binding.pieChart.invalidate()
 
         totalPrice(loan, 25, 0.0165)
@@ -189,7 +184,7 @@ class MapBuyActivity : AppCompatActivity() {
             pieChart.isRotationEnabled = true
             pieChart.isHighlightPerTapEnabled = true
             pieChart.setCenterTextSize(20f)
-            pieChart.centerText = "$monthly €/mois"
+            pieChart.centerText = getString(R.string.loan_per_month, monthly, estate.getSymbolCurrency(this@MapBuyActivity))
             pieChart.description.isEnabled = false
             pieChart.legend.isEnabled = false
             pieChart.animateY(1400, Easing.EaseInOutQuad)
@@ -203,19 +198,19 @@ class MapBuyActivity : AppCompatActivity() {
         entries.add(
             PieEntry(
                 loan.toFloat(),
-                "Emprunt"
+                getString(R.string.loan)
             )
         )
 
         entries.add(
             PieEntry(
                 benefit.toFloat(),
-                "Intérêt"
+                getString(R.string.charges)
             )
         )
 
 
-        val dataSet = PieDataSet(entries, "Résultat simulation")
+        val dataSet = PieDataSet(entries, getString(R.string.result_sim))
 
         dataSet.sliceSpace = 3f
         dataSet.iconsOffset = MPPointF(0F, 40F)

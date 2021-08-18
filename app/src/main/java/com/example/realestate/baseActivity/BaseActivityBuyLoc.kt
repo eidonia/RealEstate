@@ -109,7 +109,7 @@ abstract class BaseActivityBuyLoc : AppCompatActivity(), BottomSheetDialog.OpenA
                 editnumRoom.text.toString()
             } else {
                 check++
-                editnumRoom.error = "Champ requis"
+                editnumRoom.error = getString(R.string.empty_field)
                 ""
             }
 
@@ -117,7 +117,7 @@ abstract class BaseActivityBuyLoc : AppCompatActivity(), BottomSheetDialog.OpenA
                 editSizeEstate.text.toString()
             } else {
                 check++
-                editSizeEstate.error = "Champ requis"
+                editSizeEstate.error = getString(R.string.empty_field)
                 ""
             }
 
@@ -125,12 +125,12 @@ abstract class BaseActivityBuyLoc : AppCompatActivity(), BottomSheetDialog.OpenA
                 editDescription.text.toString()
             } else {
                 check++
-                editDescription.error = "Champ requis"
+                editDescription.error = getString(R.string.empty_field)
                 ""
             }
 
-            var priceEuro: String = ""
-            var priceDollar: String = ""
+            var priceEuro = ""
+            var priceDollar = ""
 
             if (editPriceEstate.text.toString() != "") {
 
@@ -153,13 +153,13 @@ abstract class BaseActivityBuyLoc : AppCompatActivity(), BottomSheetDialog.OpenA
 
             } else {
                 check++
-                editPriceEstate.error = "Champ requis"
+                editPriceEstate.error = getString(R.string.empty_field)
             }
 
 
             if (listUriPic.isEmpty()) {
                 textAddPic.setTextColor(resources.getColor(android.R.color.holo_red_dark))
-                textAddPic.text = "Ajouter au moins une photo"
+                textAddPic.text = getString(R.string.add_pic)
                 check++
             } else {
                 textAddPic.text = ""
@@ -173,8 +173,6 @@ abstract class BaseActivityBuyLoc : AppCompatActivity(), BottomSheetDialog.OpenA
             if (check == 0) {
                 viewModel.setAddress(address)
                 viewModel.geocode.observe(this@BaseActivityBuyLoc, {
-
-                    Log.d("blop", "fini l'observe")
 
                     val estate = RealEstate(
                         buyOrLoc = when (name) {
@@ -225,7 +223,7 @@ abstract class BaseActivityBuyLoc : AppCompatActivity(), BottomSheetDialog.OpenA
                 })
             } else {
                 textValidate.setTextColor(resources.getColor(android.R.color.holo_red_dark))
-                textValidate.text = "Erreur, vérifiez les champs"
+                textValidate.text = getString(R.string.error_field)
                 check = 0
             }
         }
@@ -237,7 +235,7 @@ abstract class BaseActivityBuyLoc : AppCompatActivity(), BottomSheetDialog.OpenA
                 editNumStreet.text.toString()
             } else {
                 check++
-                editNumStreet.error = "Champ requis"
+                editNumStreet.error = getString(R.string.empty_field)
                 ""
             }
 
@@ -245,7 +243,7 @@ abstract class BaseActivityBuyLoc : AppCompatActivity(), BottomSheetDialog.OpenA
                 editVicinity.text.toString()
             } else {
                 check++
-                editVicinity.error = "Champ requis"
+                editVicinity.error = getString(R.string.empty_field)
                 ""
             }
 
@@ -253,7 +251,7 @@ abstract class BaseActivityBuyLoc : AppCompatActivity(), BottomSheetDialog.OpenA
                 editZipCode.text.toString()
             } else {
                 check++
-                editZipCode.error = "Champ requis"
+                editZipCode.error = getString(R.string.empty_field)
                 ""
             }
 
@@ -261,7 +259,7 @@ abstract class BaseActivityBuyLoc : AppCompatActivity(), BottomSheetDialog.OpenA
                 editCity.text.toString()
             } else {
                 check++
-                editCity.error = "Champ requis"
+                editCity.error = getString(R.string.empty_field)
                 ""
             }
 
@@ -269,7 +267,7 @@ abstract class BaseActivityBuyLoc : AppCompatActivity(), BottomSheetDialog.OpenA
                 editCountry.text.toString()
             } else {
                 check++
-                editCountry.error = "Champ requis"
+                editCountry.error = getString(R.string.empty_field)
                 ""
             }
 
@@ -307,7 +305,6 @@ abstract class BaseActivityBuyLoc : AppCompatActivity(), BottomSheetDialog.OpenA
         if (result.resultCode == Activity.RESULT_OK) {
             val data: Intent? = result.data
             val imageUri = data?.data ?: photoUri
-            Log.d("blopPic", imageUri.toString())
             try {
                 picEstate = imageUri.toString()
                 viewModel.uploadPicture(picEstate).observe(this, { picture ->
@@ -326,7 +323,6 @@ abstract class BaseActivityBuyLoc : AppCompatActivity(), BottomSheetDialog.OpenA
     abstract fun getName(): String
 
     override fun openCamera() {
-        Toast.makeText(this, "Open Camera", Toast.LENGTH_SHORT).show()
         Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
             takePictureIntent.resolveActivity(packageManager)?.also {
                 val photoFile: File? = try {
@@ -336,7 +332,6 @@ abstract class BaseActivityBuyLoc : AppCompatActivity(), BottomSheetDialog.OpenA
                 }
                 photoFile?.also {
                     photoUri = FileProvider.getUriForFile(this, "com.exemple.realEstate.photo", it)
-                    Log.d("BlopPic", "pic: $photoUri")
                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri)
                     resultLauncher.launch(takePictureIntent)
                 }
@@ -345,7 +340,6 @@ abstract class BaseActivityBuyLoc : AppCompatActivity(), BottomSheetDialog.OpenA
     }
 
     override fun openGallery() {
-        Toast.makeText(this, "Open Gallery", Toast.LENGTH_SHORT).show()
         resultLauncher.launch(Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI))
     }
 
@@ -365,8 +359,8 @@ abstract class BaseActivityBuyLoc : AppCompatActivity(), BottomSheetDialog.OpenA
     override fun deletePic(picUri: String) {
         val contextView = findViewById<CoordinatorLayout>(R.id.coordinatorLayout)
 
-        Snackbar.make(contextView, "Voulez-vous supprimer la photo ? ", Snackbar.LENGTH_LONG)
-            .setAction("valider") {
+        Snackbar.make(contextView, getString(R.string.del_pic), Snackbar.LENGTH_LONG)
+            .setAction(getString(R.string.validate)) {
                 listUriPic.remove(picUri)
                 listPicAdapter.addList(listUriPic)
             }
@@ -374,8 +368,8 @@ abstract class BaseActivityBuyLoc : AppCompatActivity(), BottomSheetDialog.OpenA
     }
 
     private fun createNotification() {
-        val message = "Ajout du bien immobilier effectué"
-        val name = "RealEstate"
+        val message = getString(R.string.add_estate_notif)
+        val name = getString(R.string.app_name)
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.M) {
             val nm =
                 applicationContext.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
@@ -395,9 +389,9 @@ abstract class BaseActivityBuyLoc : AppCompatActivity(), BottomSheetDialog.OpenA
 
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val notificationManager: NotificationManager = applicationContext.getSystemService(NotificationManager::class.java)
-            var notificationChannel: NotificationChannel = NotificationChannel(
+            val notificationChannel: NotificationChannel = NotificationChannel(
                 CHANNEL_ID,
-                "Go4Lunch",
+                "RealEstate",
                 NotificationManager.IMPORTANCE_HIGH
             )
             notificationChannel.description = message

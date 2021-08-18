@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:navigationIcon="@drawable/ic_round_arrow_back_24"
-            app:title="Simulation d'un prêt" />
+            app:title="@string/sim_loan" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -51,7 +51,7 @@
                         android:checked="true"
                         android:textColor="@color/black"
                         android:buttonTint="@color/dark_brown"
-                        android:text="Bien ancien"
+                        android:text="@string/old_estate"
                         android:layout_marginEnd="50dp"/>
 
                     <RadioButton
@@ -60,7 +60,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
                         android:buttonTint="@color/dark_brown"
-                        android:text="Bien neuf"/>
+                        android:text='@string/new_estate'/>
 
                 </RadioGroup>
 
@@ -68,7 +68,7 @@
                     android:id="@+id/priceLayout"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:hint="Prix du bien"
+                    android:hint="@string/estate_price"
                     app:layout_constraintTop_toBottomOf="@id/radioGroup"
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_marginStart="10dp"
@@ -92,7 +92,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toTopOf="@id/priceLayout"
                     app:layout_constraintBottom_toBottomOf="@id/depositLayout"
-                    android:hint="frais de notaire"
+                    android:hint="@string/notary_charges"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/priceLayout"
@@ -118,7 +118,7 @@
                     android:id="@+id/depositLayout"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:hint="Apport"
+                    android:hint="@string/apport"
                     app:layout_constraintTop_toBottomOf="@id/priceLayout"
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_marginTop="10dp"
@@ -141,7 +141,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toBottomOf="@id/depositLayout"
-                    android:hint="Durée du prêt"
+                    android:hint="@string/length_loan"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -165,7 +165,7 @@
                     android:id="@+id/calculateLoan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Calculez votre prêt"
+                    android:text="@string/calcul_loan"
                     android:padding="15dp"
                     app:layout_constraintTop_toBottomOf="@id/lengthLoan"
                     app:layout_constraintStart_toStartOf="parent"

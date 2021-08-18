@@ -30,7 +30,8 @@
             android:id="@+id/textDevise"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Quelle devise utiliser ?"
+            android:text="@string/witch_devise"
+            android:textColor="@color/black"
             app:layout_constraintTop_toTopOf="@id/switchDevise"
             app:layout_constraintBottom_toBottomOf="@id/switchDevise"
             app:layout_constraintStart_toStartOf="parent"/>
@@ -39,7 +40,7 @@
             android:id="@+id/switchDevise"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="€"
+            android:text="@string/euro"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toStartOf="@id/blob"
             android:layout_marginTop="20dp"/>
@@ -52,7 +53,7 @@
             app:layout_constraintBottom_toBottomOf="@id/switchDevise"
             android:layout_marginEnd="10dp"
             android:textColor="@color/black"
-            android:text="$"
+            android:text="@string/dollar"
             app:layout_constraintEnd_toEndOf="parent"/>
 
 

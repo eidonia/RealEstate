@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.example.realestate.R
 import com.example.realestate.adapter.CriteriaAdapter
 import com.example.realestate.adapter.PoiAdapter
 import com.example.realestate.databinding.ActivityEstateAfterAddBinding
@@ -60,11 +61,9 @@ class EstateAfterAdd : AppCompatActivity() {
         }
 
         with(binding) {
-            toolbar.title = "${estate.formatType()}, ${estate.size} m², ${
-                estate.getCurrency(this@EstateAfterAdd)
-            }"
-            sizeEstate.text = "${estate.size} m²"
-            roomEstate.text = "${estate.nbRoom} pièces"
+            toolbar.title = getString(R.string.toolbar_title, estate.formatType(), estate.size, estate.getCurrency(this@EstateAfterAdd))
+            sizeEstate.text = getString(R.string.size_estate, estate.size)
+            roomEstate.text = getString(R.string.nb_room, estate.nbRoom)
             descriptionEstate.text = estate.description
             dateEstate.text = estate.getDate()
 

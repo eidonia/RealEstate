@@ -4,6 +4,7 @@ import android.content.Intent
 import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -50,11 +51,9 @@ class LocEstateFrag : BaseFragmentBuyOrLoc<FragmentLocEstateBinding>() {
         }
 
         with(binding) {
-            toolbar.title = "${estate.formatType()}, ${estate.size} m², ${
-                estate.getCurrency(requireContext())
-            }"
-            sizeEstate.text = "${estate.size} m²"
-            roomEstate.text = "${estate.nbRoom} pièces"
+            toolbar.title = getString(R.string.toolbar_title, estate.formatType(), estate.size, estate.getCurrency(requireContext()))
+            sizeEstate.text = getString(R.string.size_estate, estate.size)
+            roomEstate.text = getString(R.string.nb_room, estate.nbRoom)
             descriptionEstate.text = estate.description
             dateEstate.text = estate.getDate()
 
@@ -71,9 +70,15 @@ class LocEstateFrag : BaseFragmentBuyOrLoc<FragmentLocEstateBinding>() {
                 when (item.itemId) {
                     R.id.openModify -> {
                         if (sameUser(estate.employee)) {
-                            var intent = Intent(requireContext(), ModificationEstate::class.java)
+                            val intent = Intent(requireContext(), ModificationEstate::class.java)
                             intent.putExtra("idModif", estate.dateEntry)
                             startActivity(intent)
+                        }else {
+                            Toast.makeText(
+                                requireContext(),
+                                getString(R.string.cant_modif_estate),
+                                Toast.LENGTH_LONG
+                            ).show()
                         }
 
                         return@setOnMenuItemClickListener true
@@ -102,7 +107,6 @@ class LocEstateFrag : BaseFragmentBuyOrLoc<FragmentLocEstateBinding>() {
     override fun getViewBinding() = FragmentLocEstateBinding.inflate(layoutInflater)
 
     override fun getActivNav(): Long {
-        Log.d("BlopId", "IDREceived")
         val isTablet = requireContext().resources.getBoolean(R.bool.isTablet)
 
         return when {
@@ -119,5 +123,5 @@ class LocEstateFrag : BaseFragmentBuyOrLoc<FragmentLocEstateBinding>() {
     override fun getImage(): ImageView = binding.staticImage
     override fun getSellOrRent(): TextView = binding.dateSellOrRentEstate
     override fun getTextSellOrRent(): TextView = binding.dateSellOrRentText
-    override fun setTextSellOrRent(): CharSequence? = "Loué le"
+    override fun setTextSellOrRent(): CharSequence? = getString(R.string.rent_date)
 }

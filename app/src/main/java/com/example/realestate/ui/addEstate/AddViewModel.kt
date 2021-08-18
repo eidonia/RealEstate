@@ -49,13 +49,13 @@ class AddViewModel @Inject constructor(private val repo: EstateModel) : ViewMode
     }
 
     fun getEstateRoom(idEstate: Long): MutableLiveData<RealEstate> {
-        var mutableLiveData = MutableLiveData<RealEstate>()
+        val mutableLiveData = MutableLiveData<RealEstate>()
         viewModelScope.launch { mutableLiveData.value = repo.getEstate(idEstate) }
         return mutableLiveData
     }
 
     fun insertEstate(estate: RealEstate): MutableLiveData<Long> {
-        var mutableLiveData = MutableLiveData<Long>()
+        val mutableLiveData = MutableLiveData<Long>()
         viewModelScope.launch { mutableLiveData.value = repo.insertEstate(estate) }
         return mutableLiveData
     }

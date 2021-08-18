@@ -2,6 +2,7 @@ package com.example.realestate.ui.loanSimActivity
 
 import android.graphics.Color
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -25,7 +26,7 @@ class LoanSimActivity : AppCompatActivity() {
     private var benefit: Long = 0
     private var loanAndBenefit: Long = 0
     private var loan: Long = 0
-    private var pieData: Array<String> = arrayOf("Emprunt", "Intérêt")
+    private var check = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,33 +71,53 @@ class LoanSimActivity : AppCompatActivity() {
         }
 
         binding.calculateLoan.setOnClickListener {
+            if (checkFields()) {
+                val number =
+                    binding.priceText.text.toString().toLong() + binding.notaryText.text.toString()
+                        .toLong()
+                val deposit =
+                    if (binding.depositText.text.isNullOrEmpty()) 0 else binding.depositText.text.toString()
+                        .toLong()
+                loan = number - deposit
+                binding.pieChart.invalidate()
 
-            var number =
-                binding.priceText.text.toString().toLong() + binding.notaryText.text.toString()
-                    .toLong()
-            var deposit =
-                if (binding.depositText.text.isNullOrEmpty()) 0 else binding.depositText.text.toString()
-                    .toLong()
-            loan = number - deposit
-            binding.pieChart.invalidate()
-
-            when (binding.lengthchoice.text.toString()) {
-                "7 ans - Taux d'intérêt 0,96%" -> totalPrice(7, 0.0096, loan)
-                "10 ans - Taux d'intérêt 1,01%" -> totalPrice(10, 0.0101, loan)
-                "15 ans - Taux d'intérêt 1,17%" -> totalPrice(15, 0.0117, loan)
-                "20 ans - Taux d'intérêt 1,32%" -> totalPrice(20, 0.0132, loan)
-                "25 ans - Taux d'intérêt 1,65%" -> totalPrice(25, 0.0165, loan)
+                when (binding.lengthchoice.text.toString()) {
+                    getString(R.string.seven_years) -> totalPrice(7, 0.0096, loan)
+                    getString(R.string.ten_years) -> totalPrice(10, 0.0101, loan)
+                    getString(R.string.fifteen_years) -> totalPrice(15, 0.0117, loan)
+                    getString(R.string.twenty_years) -> totalPrice(20, 0.0132, loan)
+                    getString(R.string.twenty_five_years) -> totalPrice(25, 0.0165, loan)
+                }
             }
         }
     }
 
+    private fun checkFields(): Boolean {
+        if (binding.priceText.text.toString() == "") {
+            check++
+            binding.priceText.error = getString(R.string.empty_field)
+        }
+
+        if (binding.depositText.text.toString() == "") {
+            check++
+            binding.depositText.error = getString(R.string.empty_field)
+        }
+
+        if (check > 0) {
+            check = 0
+            return false
+        }
+        return true
+
+    }
+
     private fun createAutoComplete() {
         val items = listOf(
-            "7 ans - Taux d'intérêt 0,96%",
-            "10 ans - Taux d'intérêt 1,01%",
-            "15 ans - Taux d'intérêt 1,17%",
-            "20 ans - Taux d'intérêt 1,32%",
-            "25 ans - Taux d'intérêt 1,65%"
+            getString(R.string.seven_years),
+            getString(R.string.ten_years),
+            getString(R.string.fifteen_years),
+            getString(R.string.twenty_years),
+            getString(R.string.twenty_five_years)
         )
 
         val adapter = ArrayAdapter(this, R.layout.list_items, items)
@@ -129,12 +150,20 @@ class LoanSimActivity : AppCompatActivity() {
             pieChart.isRotationEnabled = true
             pieChart.isHighlightPerTapEnabled = true
             pieChart.setCenterTextSize(20f)
-            pieChart.centerText = "$monthly €/mois"
+            pieChart.centerText = getString(R.string.loan_per_month, monthly, getCurrency())
             pieChart.description.isEnabled = false
             pieChart.legend.isEnabled = false
             pieChart.animateY(1400, EaseInOutQuad)
         }
 
+    }
+
+    private fun getCurrency(): String {
+        return when (PreferenceManager.getDefaultSharedPreferences(this)
+            .getBoolean("getCurrency", false)) {
+            true -> " $"
+            false -> "€"
+        }
     }
 
     private fun setData() {
@@ -143,14 +172,14 @@ class LoanSimActivity : AppCompatActivity() {
         entries.add(
             PieEntry(
                 loan.toFloat(),
-                "Emprunt"
+                getString(R.string.loan)
             )
         )
 
         entries.add(
             PieEntry(
                 benefit.toFloat(),
-                "Intérêt"
+                getString(R.string.charges)
             )
         )
 

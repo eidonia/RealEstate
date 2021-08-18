@@ -23,7 +23,7 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:title="Modification"
+                app:title="@string/modify_estate"
                 app:navigationIcon="@drawable/ic_round_arrow_back_24"/>
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -61,7 +61,7 @@
                             android:id="@+id/textType"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Type de bien"
+                            android:text="@string/type_estate"
                             android:textAllCaps="true"
                             android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -94,7 +94,7 @@
                                     android:layout_marginEnd="5dp"
                                     android:buttonTint="@color/dark_brown"
                                     android:checked="true"
-                                    android:text="Disponible"
+                                    android:text="@string/estate_dispo"
                                     android:textColor="@color/black" />
 
                                 <RadioButton
@@ -103,7 +103,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginEnd="5dp"
                                     android:buttonTint="@color/dark_brown"
-                                    android:text="Non Disponible"
+                                    android:text="@string/estate_not_dispo"
                                     android:textColor="@color/black" />
 
                             </RadioGroup>
@@ -137,7 +137,7 @@
                                     android:layout_marginEnd="5dp"
                                     android:buttonTint="@color/dark_brown"
                                     android:checked="true"
-                                    android:text="Achat"
+                                    android:text="@string/buy"
                                     android:textColor="@color/black" />
 
                                 <RadioButton
@@ -146,7 +146,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginEnd="5dp"
                                     android:buttonTint="@color/dark_brown"
-                                    android:text="Location"
+                                    android:text="@string/location"
                                     android:textColor="@color/black" />
 
                             </RadioGroup>
@@ -180,7 +180,7 @@
                                     android:layout_marginEnd="5dp"
                                     android:buttonTint="@color/dark_brown"
                                     android:checked="true"
-                                    android:text="Maison"
+                                    android:text="@string/house"
                                     android:textColor="@color/black" />
 
                                 <RadioButton
@@ -189,7 +189,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginEnd="5dp"
                                     android:buttonTint="@color/dark_brown"
-                                    android:text="Appartement"
+                                    android:text="@string/apartment"
                                     android:textColor="@color/black" />
 
                                 <RadioButton
@@ -198,7 +198,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginEnd="5dp"
                                     android:buttonTint="@color/dark_brown"
-                                    android:text="Duplex"
+                                    android:text="@string/duplex"
                                     android:textColor="@color/black" />
 
                                 <RadioButton
@@ -206,7 +206,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:buttonTint="@color/dark_brown"
-                                    android:text="Manoir"
+                                    android:text="@string/manor"
                                     android:textColor="@color/black" />
 
                             </RadioGroup>
@@ -240,7 +240,7 @@
                                     android:layout_marginEnd="5dp"
                                     android:buttonTint="@color/dark_brown"
                                     android:checked="true"
-                                    android:text="Bien ancien"
+                                    android:text="@string/old_estate"
                                     android:textColor="@color/black" />
 
                                 <RadioButton
@@ -249,7 +249,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginEnd="5dp"
                                     android:buttonTint="@color/dark_brown"
-                                    android:text="Bien récent"
+                                    android:text="@string/new_estate"
                                     android:textColor="@color/black" />
 
                             </RadioGroup>
@@ -287,7 +287,7 @@
                             android:id="@+id/textAddress"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Adresse du bien"
+                            android:text="@string/adress"
                             android:textAllCaps="true"
                             android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -301,7 +301,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_marginEnd="5dp"
-                            android:hint="N°"
+                            android:hint="@string/number"
                             android:textColorHint="@color/black"
                             app:boxStrokeColor="@color/black"
                             app:layout_constraintEnd_toStartOf="@id/vicinity"
@@ -323,7 +323,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:layout_marginEnd="10dp"
-                            android:hint="Adresse"
+                            android:hint="@string/vicinity"
                             android:textColorHint="@color/black"
                             app:boxStrokeColor="@color/black"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -345,7 +345,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_marginEnd="5dp"
-                            android:hint="Zip Code"
+                            android:hint="@string/zip_code"
                             android:textColorHint="@color/black"
                             app:boxStrokeColor="@color/black"
                             app:layout_constraintEnd_toStartOf="@id/city"
@@ -367,7 +367,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:layout_marginEnd="10dp"
-                            android:hint="City"
+                            android:hint="@string/city"
                             android:textColorHint="@color/black"
                             app:boxStrokeColor="@color/black"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -387,7 +387,7 @@
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:hint="Country"
+                            android:hint="@string/country"
                             android:textColorHint="@color/black"
                             app:boxStrokeColor="@color/black"
                             app:layout_constraintEnd_toEndOf="@id/city"
@@ -431,7 +431,7 @@
                             android:id="@+id/textEstate"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Informations sur le bien"
+                            android:text="@string/informations"
                             android:textAllCaps="true"
                             android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -443,7 +443,7 @@
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:hint="Nombre de pièce"
+                            android:hint="@string/number_room"
                             android:textColorHint="@color/black"
                             app:boxStrokeColor="@color/black"
                             app:layout_constraintEnd_toStartOf="@id/sizeEstate"
@@ -464,7 +464,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
-                            android:hint="Taille du bien"
+                            android:hint="@string/size"
                             android:textColorHint="@color/black"
                             app:boxStrokeColor="@color/black"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -494,7 +494,7 @@
                                 android:id="@+id/checkCave"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Cave"
+                                android:text="@string/cave"
                                 app:buttonTint="@color/dark_brown"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
@@ -504,7 +504,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="10dp"
-                                android:text="Parking"
+                                android:text="@string/parking"
                                 app:buttonTint="@color/dark_brown"
                                 app:layout_constraintStart_toEndOf="@id/checkCave"
                                 app:layout_constraintTop_toTopOf="parent" />
@@ -514,7 +514,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="10dp"
-                                android:text="Kitchen Area"
+                                android:text="@string/kitchen_area"
                                 app:buttonTint="@color/dark_brown"
                                 app:layout_constraintStart_toEndOf="@id/checkParking"
                                 app:layout_constraintTop_toTopOf="parent" />
@@ -523,7 +523,7 @@
                                 android:id="@+id/checkOpenKitch"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Open-Plane Kitchen"
+                                android:text="@string/open_plane_kitchen"
                                 app:buttonTint="@color/dark_brown"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@id/checkCave" />
@@ -533,7 +533,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="10dp"
-                                android:text="Terrace"
+                                android:text="@string/terrace"
                                 app:buttonTint="@color/dark_brown"
                                 app:layout_constraintStart_toEndOf="@id/checkOpenKitch"
                                 app:layout_constraintTop_toTopOf="@id/checkOpenKitch" />
@@ -543,7 +543,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="10dp"
-                                android:text="Balcony"
+                                android:text="@string/balccony"
                                 app:buttonTint="@color/dark_brown"
                                 app:layout_constraintStart_toEndOf="@id/checkTerrace"
                                 app:layout_constraintTop_toTopOf="@id/checkTerrace" />
@@ -556,7 +556,7 @@
                             android:layout_width="0dp"
                             android:layout_height="150dp"
                             android:layout_marginTop="10dp"
-                            android:hint="Description"
+                            android:hint="@string/description"
                             android:textColorHint="@color/black"
                             app:boxStrokeColor="@color/black"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -578,7 +578,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:hint="Prix du bien"
+                            android:hint="@string/estate_price"
                             android:textColorHint="@color/black"
                             app:boxStrokeColor="@color/black"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -623,7 +623,7 @@
                             android:id="@+id/textAround"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Autour du bien"
+                            android:text="@string/around_estate"
                             android:textAllCaps="true"
                             android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -643,7 +643,7 @@
                                 android:id="@+id/checkSchools"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Ecole"
+                                android:text="@string/schools"
                                 app:buttonTint="@color/dark_brown"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
@@ -653,7 +653,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="10dp"
-                                android:text="Commerces"
+                                android:text="@string/business"
                                 app:buttonTint="@color/dark_brown"
                                 app:layout_constraintStart_toEndOf="@id/checkSchools"
                                 app:layout_constraintTop_toTopOf="parent" />
@@ -663,7 +663,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="10dp"
-                                android:text="Transports"
+                                android:text="@string/transports"
                                 app:buttonTint="@color/dark_brown"
                                 app:layout_constraintStart_toEndOf="@id/checkBusiness"
                                 app:layout_constraintTop_toTopOf="parent" />
@@ -672,7 +672,7 @@
                                 android:id="@+id/checkPark"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Parc"
+                                android:text="@string/Park"
                                 app:buttonTint="@color/dark_brown"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@id/checkTransports" />
@@ -682,7 +682,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="10dp"
-                                android:text="Etablissements de soins"
+                                android:text="@string/health"
                                 app:buttonTint="@color/dark_brown"
                                 app:layout_constraintStart_toEndOf="@id/checkPark"
                                 app:layout_constraintTop_toTopOf="@id/checkPark" />
@@ -717,7 +717,7 @@
                             style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Rajouter photo"
+                            android:text="@string/add_picture"
                             app:icon="@drawable/ic_round_add_circle_24"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -748,7 +748,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="Modifier"
+                    android:text="@string/modify_estate"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/cardPick"/>

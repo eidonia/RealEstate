@@ -219,14 +219,6 @@ abstract class BaseFragmentListLocOrBuy : Fragment() {
 
             }
         }
-
-        if (listPoi.isEmpty()) {
-            Log.d("testListFilter", "list vide")
-        }
-        for (estate in listPoi) {
-            Log.d("testListFilter", "$estate")
-        }
-
         adapterList.addList(listPoi)
     }
 

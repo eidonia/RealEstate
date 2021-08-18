@@ -94,7 +94,6 @@ class ModificationEstate : AppCompatActivity(), ListPicAdapter.UpdatePic,
             EstateType.APARTMENT -> binding.radioApartment.isChecked = true
             EstateType.MANOR -> binding.radioManor.isChecked = true
             EstateType.DUPLEX -> binding.radioDuplex.isChecked = true
-            EstateType.HOUSE -> binding.radioHouse.isChecked = true
         }
 
         when (estate?.oldOrNew) {
@@ -203,7 +202,6 @@ class ModificationEstate : AppCompatActivity(), ListPicAdapter.UpdatePic,
     }
 
     override fun openCamera() {
-        Toast.makeText(this, "Open Camera", Toast.LENGTH_SHORT).show()
         Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
             takePictureIntent.resolveActivity(packageManager)?.also {
                 val photoFile: File? = try {
@@ -246,7 +244,7 @@ class ModificationEstate : AppCompatActivity(), ListPicAdapter.UpdatePic,
                 editnumRoom.text.toString()
             } else {
                 check++
-                editnumRoom.error = "Champ requis"
+                editnumRoom.error = getString(R.string.empty_field)
                 ""
             }
 
@@ -254,7 +252,7 @@ class ModificationEstate : AppCompatActivity(), ListPicAdapter.UpdatePic,
                 editSizeEstate.text.toString()
             } else {
                 check++
-                editSizeEstate.error = "Champ requis"
+                editSizeEstate.error = getString(R.string.empty_field)
                 ""
             }
 
@@ -262,7 +260,7 @@ class ModificationEstate : AppCompatActivity(), ListPicAdapter.UpdatePic,
                 editDescription.text.toString()
             } else {
                 check++
-                editDescription.error = "Champ requis"
+                editDescription.error = getString(R.string.empty_field)
                 ""
             }
 
@@ -291,13 +289,13 @@ class ModificationEstate : AppCompatActivity(), ListPicAdapter.UpdatePic,
 
             } else {
                 check++
-                editPriceEstate.error = "Champ requis"
+                editPriceEstate.error = getString(R.string.empty_field)
                 ""
             }
 
             if (estate.listPic.isEmpty()) {
                 textAddPic.setTextColor(resources.getColor(android.R.color.holo_red_dark))
-                textAddPic.text = "Ajouter au moins une photo"
+                textAddPic.text = getString(R.string.add_pic)
                 check++
             } else {
                 textAddPic.text = ""
@@ -358,7 +356,7 @@ class ModificationEstate : AppCompatActivity(), ListPicAdapter.UpdatePic,
                 })
             } else {
                 textValidate.setTextColor(resources.getColor(android.R.color.holo_red_dark))
-                textValidate.text = "Erreur, vérifiez les champs"
+                textValidate.text = getString(R.string.error_field)
                 check = 0
             }
         }
@@ -370,7 +368,7 @@ class ModificationEstate : AppCompatActivity(), ListPicAdapter.UpdatePic,
                 editNumStreet.text.toString()
             } else {
                 check++
-                editNumStreet.error = "Champ requis"
+                editNumStreet.error = getString(R.string.empty_field)
                 ""
             }
 
@@ -378,7 +376,7 @@ class ModificationEstate : AppCompatActivity(), ListPicAdapter.UpdatePic,
                 editVicinity.text.toString()
             } else {
                 check++
-                editVicinity.error = "Champ requis"
+                editVicinity.error = getString(R.string.empty_field)
                 ""
             }
 
@@ -386,7 +384,7 @@ class ModificationEstate : AppCompatActivity(), ListPicAdapter.UpdatePic,
                 editZipCode.text.toString()
             } else {
                 check++
-                editZipCode.error = "Champ requis"
+                editZipCode.error = getString(R.string.empty_field)
                 ""
             }
 
@@ -394,7 +392,7 @@ class ModificationEstate : AppCompatActivity(), ListPicAdapter.UpdatePic,
                 editCity.text.toString()
             } else {
                 check++
-                editCity.error = "Champ requis"
+                editCity.error = getString(R.string.empty_field)
                 ""
             }
 
@@ -402,7 +400,7 @@ class ModificationEstate : AppCompatActivity(), ListPicAdapter.UpdatePic,
                 editCountry.text.toString()
             } else {
                 check++
-                editCountry.error = "Champ requis"
+                editCountry.error = getString(R.string.empty_field)
                 ""
             }
 
@@ -437,7 +435,6 @@ class ModificationEstate : AppCompatActivity(), ListPicAdapter.UpdatePic,
     }
 
     override fun openGallery() {
-        Toast.makeText(this, "Open Gallery", Toast.LENGTH_SHORT).show()
         resultLauncher.launch(
             Intent(
                 Intent.ACTION_PICK,
@@ -461,8 +458,8 @@ class ModificationEstate : AppCompatActivity(), ListPicAdapter.UpdatePic,
     override fun deletePic(picUri: String) {
         val contextView = findViewById<CoordinatorLayout>(R.id.coordinatorLayout)
 
-        Snackbar.make(contextView, "Voulez-vous supprimer la photo ? ", Snackbar.LENGTH_LONG)
-            .setAction("valider") {
+        Snackbar.make(contextView, getString(R.string.del_pic), Snackbar.LENGTH_LONG)
+            .setAction(getString(R.string.validate)) {
                 estate.listPic.remove(picUri)
                 adapterPic.addList(estate.listPic)
             }

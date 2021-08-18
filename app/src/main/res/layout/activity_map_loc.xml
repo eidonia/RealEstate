@@ -22,7 +22,7 @@
             android:background="?attr/colorPrimary"
             app:navigationIcon="@drawable/ic_round_arrow_back_24"
             app:menu="@menu/modify_menu"
-            app:title="Louer un bien" />
+            app:title="@string/rent_estate" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
@@ -57,7 +57,7 @@
                         android:id="@+id/sizeText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Taille"
+                        android:text="@string/size"
                         app:layout_constraintTop_toTopOf="parent"
                         android:layout_marginTop="15dp"
                         android:layout_marginStart="15dp"
@@ -77,7 +77,7 @@
                         android:id="@+id/roomText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Nombres de pièces"
+                        android:text="@string/number_room"
                         app:layout_constraintTop_toTopOf="parent"
                         android:layout_marginTop="15dp"
                         android:layout_marginEnd="15dp"
@@ -97,7 +97,7 @@
                         android:id="@+id/criteriaText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Critères"
+                        android:text="@string/criteria"
                         app:layout_constraintTop_toBottomOf="@id/sizeEstate"
                         android:layout_marginTop="15dp"
                         android:layout_marginStart="15dp"
@@ -116,7 +116,7 @@
                         android:id="@+id/poiText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Point of interest"
+                        android:text="@string/point_of_interest"
                         app:layout_constraintTop_toBottomOf="@id/roomEstate"
                         android:layout_marginTop="15dp"
                         android:layout_marginEnd="15dp"
@@ -141,7 +141,7 @@
                 android:id="@+id/descriptionText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Description"
+                android:text="@string/description"
                 app:layout_constraintTop_toBottomOf="@id/cardview"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="15dp"/>
@@ -169,7 +169,7 @@
                 android:id="@+id/dateText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Mis en ligne"
+                android:text="@string/online"
                 app:layout_constraintTop_toBottomOf="@id/staticImage"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginTop="15dp"
@@ -182,7 +182,6 @@
                 app:layout_constraintTop_toBottomOf="@id/dateText"
                 app:layout_constraintStart_toStartOf="@id/dateText"
                 app:layout_constraintEnd_toEndOf="@id/dateText"
-                android:text="17/07/21"
                 android:textSize="17sp"
                 android:textStyle="bold"/>
 

@@ -25,7 +25,6 @@ class EstateRepository @Inject constructor(
 
 
     override suspend fun getStaticImage(address: String): String {
-        Log.d("address", "address + $address")
         return "http://maps.google.com/maps/api/staticmap?center=$address&zoom=19&size=1000x800&sensor=false&markers=color:blue%7C$address&key=$API_KEY"
     }
 
@@ -50,7 +49,6 @@ class EstateRepository @Inject constructor(
     }
 
     override suspend fun getEstate(id: Long): RealEstate {
-        Log.d("testRepo", "id: $id")
         return estateDao.getEstatewithId(id)
     }
 
@@ -61,10 +59,10 @@ class EstateRepository @Inject constructor(
 
     override suspend fun uploadPic(pic: String): MutableLiveData<String> {
         val mutableLiveData = MutableLiveData<String>()
-        var picUri = Uri.parse(pic)
+        val picUri = Uri.parse(pic)
 
-        var picRef: StorageReference = storage.child(picUri.lastPathSegment!!)
-        var uploadTask: UploadTask = picRef.putFile(picUri)
+        val picRef: StorageReference = storage.child(picUri.lastPathSegment!!)
+        val uploadTask: UploadTask = picRef.putFile(picUri)
 
         uploadTask.addOnFailureListener {
             Log.d("uploadPic", "error : ${it.message}")
@@ -78,23 +76,20 @@ class EstateRepository @Inject constructor(
             }
             return@continueWithTask picRef.downloadUrl
         }.addOnCompleteListener { task ->
-            var downloadUri: Uri = task.result
+            val downloadUri: Uri = task.result
             mutableLiveData.postValue(downloadUri.toString())
         }
         return mutableLiveData
     }
 
     override suspend fun getListEstate(buyOrLoc: BuyOrLoc): MutableLiveData<MutableList<RealEstate>> {
-        var mutableLiveData = MutableLiveData<MutableList<RealEstate>>()
-        //val listFireStore = getBuyOrLocFromFirebase(buyOrLoc)
+        val mutableLiveData = MutableLiveData<MutableList<RealEstate>>()
 
         db.collection(buyOrLoc.name)
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
-                    Log.d("test", "listPicFirebase : ${document["listPic"]}")
                     val estate = document.toObject(RealEstate::class.java)
-                    Log.d("test", "listPicFirebase : ${estate.listPic}")
                     estateDao.insertEstate(estate)
                 }
                 mutableLiveData.value = estateDao.getLocOrBuyEstate(buyOrLoc)

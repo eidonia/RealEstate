@@ -8,7 +8,7 @@
         android:id="@+id/textChoice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Que voulez-vous choisir ?"
+        android:text="@string/choice_app"
         app:layout_constraintTop_toTopOf="parent"
         android:gravity="center"
         android:layout_marginTop="5dp"/>
@@ -21,7 +21,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:icon="@drawable/ic_round_photo_24"
         style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
-        android:text="Ouvrir la galerie"
+        android:text="@string/open_gallery"
         android:textColor="@android:color/tab_indicator_text"
         app:iconTint="@android:color/tab_indicator_text"/>
 
@@ -33,7 +33,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:icon="@drawable/ic_round_photo_camera_24"
         style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
-        android:text="Prendre une photo"
+        android:text="@string/open_camera"
         android:textColor="@android:color/tab_indicator_text"
         app:iconTint="@android:color/tab_indicator_text"/>
 

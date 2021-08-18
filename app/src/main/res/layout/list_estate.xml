@@ -19,7 +19,6 @@
             android:id="@+id/priceEstate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="100 000 €"
             app:layout_constraintStart_toEndOf="@id/imgEstate"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginStart="5dp"
@@ -30,7 +29,6 @@
             android:id="@+id/roomEstate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="5 pièces"
             app:layout_constraintStart_toStartOf="@id/priceEstate"
             app:layout_constraintTop_toBottomOf="@id/priceEstate"/>
 
@@ -38,7 +36,6 @@
             android:id="@+id/sizeEstate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="70 m²"
             app:layout_constraintStart_toStartOf="@id/roomEstate"
             app:layout_constraintTop_toBottomOf="@id/roomEstate"/>
 
@@ -46,7 +43,6 @@
             android:id="@+id/dateEntryEstate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="17/07/2021"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginEnd="10dp"
@@ -56,7 +52,6 @@
             android:id="@+id/employeeEstate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Bastien Rambeaud"
             app:layout_constraintEnd_toEndOf="@id/dateEntryEstate"
             app:layout_constraintTop_toBottomOf="@id/dateEntryEstate"
             android:layout_marginEnd="10dp"

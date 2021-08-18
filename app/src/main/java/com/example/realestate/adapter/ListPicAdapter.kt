@@ -29,7 +29,6 @@ ListPicAdapter constructor(private val context: Context, private val updatePic: 
             .into(holder.image)
 
         holder.itemView.setOnLongClickListener {
-            Log.d("testuri", listUri[position])
             updatePic.deletePic(listUri[position])
             true
         }

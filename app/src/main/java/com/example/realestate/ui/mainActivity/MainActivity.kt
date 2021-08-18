@@ -8,6 +8,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import com.example.realestate.R
 import com.example.realestate.databinding.ActivityMainBinding
 import com.example.realestate.ui.addEstate.addBuyActivity.AddBuyActivity
 import com.example.realestate.ui.addEstate.addLocActivity.AddLocActivity
@@ -70,13 +71,12 @@ class MainActivity : AppCompatActivity() {
             }
             btnWifi.setOnClickListener {
                 if (Utils.isInternetAvailable(this@MainActivity)) {
-                    Toast.makeText(this@MainActivity, "Connexion disponible", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@MainActivity, getString(R.string.connec_avail), Toast.LENGTH_LONG).show()
                 } else {
-                    Toast.makeText(this@MainActivity, "Connexion indisponible", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@MainActivity, getString(R.string.connec_unavail), Toast.LENGTH_LONG).show()
                 }
             }
             btnMap.setOnClickListener {
-                Log.d("ClickMapButton", "1st Click")
                 if (ActivityCompat.checkSelfPermission(
                         this@MainActivity,
                         Manifest.permission.ACCESS_FINE_LOCATION
@@ -88,11 +88,11 @@ class MainActivity : AppCompatActivity() {
                     if (Utils.isLocationAvailable(this@MainActivity)){
                         startActivity(Intent(this@MainActivity, MapActivity::class.java))
                     } else {
-                        Toast.makeText(this@MainActivity, "Location not activated", Toast.LENGTH_LONG)
+                        Toast.makeText(this@MainActivity, getString(R.string.loc_not_activ), Toast.LENGTH_LONG)
                             .show()
                     }
                 } else {
-                    Toast.makeText(this@MainActivity, "Location not allowed", Toast.LENGTH_LONG)
+                    Toast.makeText(this@MainActivity, getString(R.string.loc_unall), Toast.LENGTH_LONG)
                         .show()
                 }
             }
@@ -107,7 +107,7 @@ class MainActivity : AppCompatActivity() {
                         ViewAnimation.showOut(fabAddBuy)
                     }
                 }else {
-                    Toast.makeText(this@MainActivity, "Impossible d'ajouter un bien en étant hors-ligne", Toast.LENGTH_LONG)
+                    Toast.makeText(this@MainActivity, getString(R.string.cant_add_offline), Toast.LENGTH_LONG)
                         .show()
                 }
             }

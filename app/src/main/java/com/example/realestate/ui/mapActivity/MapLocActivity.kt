@@ -65,11 +65,9 @@ class MapLocActivity : AppCompatActivity() {
         }
 
         with(binding) {
-            toolbar.title = "${estate.formatType()}, ${estate.size} m², ${
-                estate.getCurrency(this@MapLocActivity)
-            }"
-            sizeEstate.text = "${estate.size} m²"
-            roomEstate.text = "${estate.nbRoom} pièces"
+            toolbar.title = getString(R.string.toolbar_title, estate.formatType(), estate.size, estate.getCurrency(this@MapLocActivity))
+            sizeEstate.text = getString(R.string.size_estate, estate.size)
+            roomEstate.text = getString(R.string.nb_room, estate.nbRoom)
             descriptionEstate.text = estate.description
             dateEstate.text = estate.getDate()
 

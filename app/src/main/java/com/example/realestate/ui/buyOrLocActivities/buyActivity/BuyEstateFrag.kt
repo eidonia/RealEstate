@@ -33,7 +33,10 @@ import kotlin.math.pow
 @AndroidEntryPoint
 class BuyEstateFrag : BaseFragmentBuyOrLoc<FragmentBuyEstateBinding>() {
 
+    private lateinit var estate: RealEstate
+
     override fun createUI(estate: RealEstate) {
+        this.estate = estate
         super.createUI(estate)
         val isTablet = requireContext().resources.getBoolean(R.bool.isTablet)
         if (!isTablet) {
@@ -61,11 +64,9 @@ class BuyEstateFrag : BaseFragmentBuyOrLoc<FragmentBuyEstateBinding>() {
         }
 
         with(binding) {
-            toolbar.title = "${estate.formatType()}, ${estate.size} m², ${
-                estate.getCurrency(requireContext())
-            }"
-            sizeEstate.text = "${estate.size} m²"
-            roomEstate.text = "${estate.nbRoom} pièces"
+            toolbar.title = getString(R.string.toolbar_title, estate.formatType(), estate.size, estate.getCurrency(requireContext()))
+            sizeEstate.text = requireContext().getString(R.string.size_estate, estate.size)
+            roomEstate.text = requireContext().getString(R.string.nb_room, estate.nbRoom)
             descriptionEstate.text = estate.description
             dateEstate.text = estate.getDate()
 
@@ -88,7 +89,7 @@ class BuyEstateFrag : BaseFragmentBuyOrLoc<FragmentBuyEstateBinding>() {
                         } else {
                             Toast.makeText(
                                 requireContext(),
-                                "Vous ne pouvez pas modifier ce bien",
+                                getString(R.string.cant_modif_estate),
                                 Toast.LENGTH_LONG
                             ).show()
                         }
@@ -120,10 +121,8 @@ class BuyEstateFrag : BaseFragmentBuyOrLoc<FragmentBuyEstateBinding>() {
         var loan = (estate.euroOrDollarLong(requireContext()) + notaryCharges) - deposit
 
 
-        binding.textExample.text =
-            "Exemple de prêt possible pour une durée de 25 ans avec un taux d'intérêt de 1,65% et un apport égal à 20% du prix (soit $deposit ${
-                estate.getSymbolCurrency(requireContext())
-            })"
+        binding.textExample.text = requireContext().getString(R.string.loan_example, deposit.toString(), estate.getSymbolCurrency(requireContext()))
+
         binding.pieChart.invalidate()
 
         totalPrice(loan, 25, 0.0165)
@@ -151,7 +150,7 @@ class BuyEstateFrag : BaseFragmentBuyOrLoc<FragmentBuyEstateBinding>() {
             pieChart.isRotationEnabled = true
             pieChart.isHighlightPerTapEnabled = true
             pieChart.setCenterTextSize(20f)
-            pieChart.centerText = "$monthly €/mois"
+            pieChart.centerText = requireContext().getString(R.string.loan_per_month, monthly, estate.getSymbolCurrency(requireContext()))
             pieChart.description.isEnabled = false
             pieChart.legend.isEnabled = false
             pieChart.animateY(1400, Easing.EaseInOutQuad)
@@ -165,19 +164,19 @@ class BuyEstateFrag : BaseFragmentBuyOrLoc<FragmentBuyEstateBinding>() {
         entries.add(
             PieEntry(
                 loan.toFloat(),
-                "Emprunt"
+                getString(R.string.loan)
             )
         )
 
         entries.add(
             PieEntry(
                 benefit.toFloat(),
-                "Intérêt"
+                getString(R.string.charges)
             )
         )
 
 
-        val dataSet = PieDataSet(entries, "Résultat simulation")
+        val dataSet = PieDataSet(entries, getString(R.string.result_sim))
 
         dataSet.sliceSpace = 3f
         dataSet.iconsOffset = MPPointF(0F, 40F)
@@ -209,7 +208,6 @@ class BuyEstateFrag : BaseFragmentBuyOrLoc<FragmentBuyEstateBinding>() {
     override fun getViewBinding() = FragmentBuyEstateBinding.inflate(layoutInflater)
 
     override fun getActivNav(): Long {
-        Log.d("BlopId", "IDREceived")
         val isTablet = requireContext().resources.getBoolean(R.bool.isTablet)
 
         return when {
@@ -236,5 +234,5 @@ class BuyEstateFrag : BaseFragmentBuyOrLoc<FragmentBuyEstateBinding>() {
 
     override fun getSellOrRent(): TextView = binding.dateSellOrRentEstate
     override fun getTextSellOrRent(): TextView = binding.dateSellOrRentText
-    override fun setTextSellOrRent(): CharSequence? = "Vendu le"
+    override fun setTextSellOrRent(): CharSequence? = getString(R.string.sell_date)
 }
